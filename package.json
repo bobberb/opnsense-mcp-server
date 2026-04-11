@@ -13,9 +13,7 @@
   "bugs": {
     "url": "https://github.com/richard-stovall/opnsense-mcp-server/issues"
   },
-  "bin": {
-    "opnsense-mcp-server": "index.js"
-  },
+  "bin": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "tsx watch index.ts",
@@ -39,7 +37,7 @@
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.1",
-    "@richard-stovall/opnsense-typescript-client": "0.5.3",
+    "@richard-stovall/opnsense-typescript-client": "patch:@richard-stovall/opnsense-typescript-client@npm%3A0.5.3#~/.yarn/patches/@richard-stovall-opnsense-typescript-client-npm-0.5.3-6a8498cbcb.patch",
     "zod": "^3.25.67"
   },
   "devDependencies": {
