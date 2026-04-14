@@ -47,11 +47,11 @@ function generateModularSchema(methods: string[]): any {
           // Common parameters that many methods use
           uuid: {
             type: 'string',
-            description: 'Item UUID (for get/set/del operations)'
+            description: 'Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)'
           },
           data: {
             type: 'object',
-            description: 'Configuration data (for set operations)'
+            description: 'Configuration data (for set/add/reconfigure operations)'
           },
           item: {
             type: 'object',
@@ -70,6 +70,67 @@ function generateModularSchema(methods: string[]): any {
             type: 'integer',
             description: 'Rows per page (for search operations)',
             default: 20
+          },
+          // Service operation parameters
+          name: {
+            type: 'string',
+            description: 'Service name (required for serviceRestart, serviceStart, serviceStop)'
+          },
+          id: {
+            type: 'string',
+            description: 'Service instance ID (optional for service operations)'
+          },
+          // Backup operation parameters
+          host: {
+            type: 'string',
+            description: 'Host identifier (for backupBackups, backupDiff, backupDownload)'
+          },
+          backup: {
+            type: 'string',
+            description: 'Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)'
+          },
+          backup1: {
+            type: 'string',
+            description: 'First backup ID (for backupDiff)'
+          },
+          backup2: {
+            type: 'string',
+            description: 'Second backup ID (for backupDiff)'
+          },
+          // HA sync parameters
+          action: {
+            type: 'string',
+            description: 'Action to perform (for hasyncStatusRemoteService)'
+          },
+          service: {
+            type: 'string',
+            description: 'Service name (for hasync status operations)'
+          },
+          serviceId: {
+            type: 'string',
+            description: 'Service ID (for hasync status operations)'
+          },
+          // IDS parameters
+          filename: {
+            type: 'string',
+            description: 'Filename (for settingsSetRuleset)'
+          },
+          filenames: {
+            type: 'string',
+            description: 'Filenames (for settingsToggleRuleset)'
+          },
+          enabled: {
+            type: 'string',
+            description: 'Enable/disable flag (for toggle operations)'
+          },
+          sid: {
+            type: 'string',
+            description: 'Rule SID (for settingsToggleRule)'
+          },
+          // Safety gate
+          confirm: {
+            type: 'boolean',
+            description: 'Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute.'
           }
         }
       }

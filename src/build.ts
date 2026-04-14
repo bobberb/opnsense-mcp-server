@@ -84,24 +84,23 @@ class OPNsenseMCPServer {
         console.error('Tool call error:', {
           tool: tool.name,
           module: tool.module,
-          args,
+          method: args.method,
           error: error instanceof Error ? error.message : 'Unknown error',
-          stack: error instanceof Error ? error.stack : undefined
         });
-        
-        // Extract more details from axios errors
+
         let errorMessage = 'Unknown error';
         if (error instanceof Error) {
           errorMessage = error.message;
-          if (error.response) {
+          // Check for HTTP response errors (fetch/axios-style)
+          if ('response' in error && error.response && typeof error.response === 'object') {
             const response = error.response;
-            errorMessage = \`HTTP \${response.status}: \${response.statusText}\\n\`;
+            errorMessage = \`HTTP \${response.status}: \${response.statusText || 'Error'}\\n\`;
             if (response.data) {
               errorMessage += \`Response: \${JSON.stringify(response.data, null, 2)}\`;
             }
           }
         }
-        
+
         return {
           content: [{
             type: 'text',
@@ -127,16 +126,32 @@ class OPNsenseMCPServer {
 
   async callModularTool(tool, args) {
     const client = this.ensureClient();
-    
+
     // Validate method parameter
     if (!args.method) {
       throw new Error(\`Missing required parameter 'method'. Available methods: \${tool.methods.join(', ')}\`);
     }
-    
+
     if (!tool.methods.includes(args.method)) {
       throw new Error(\`Invalid method '\${args.method}'. Available methods: \${tool.methods.join(', ')}\`);
     }
-    
+
+    const params = args.params || {};
+
+    // Destructive methods require explicit confirmation
+    const DESTRUCTIVE_METHODS = new Set([
+      'systemHalt', 'systemReboot',
+      'backupRevertBackup', 'backupDeleteBackup',
+    ]);
+
+    if (DESTRUCTIVE_METHODS.has(args.method) && params.confirm !== true) {
+      return {
+        warning: \`\${args.method} is a destructive operation that cannot be undone. Pass "confirm": true in params to proceed.\`,
+        method: args.method,
+        confirmed: false,
+      };
+    }
+
     // Get the module
     let moduleObj;
     if (tool.module === 'plugins' && tool.submodule) {
@@ -155,16 +170,59 @@ class OPNsenseMCPServer {
       throw new Error(\`Method \${args.method} not found in module \${tool.module}\`);
     }
 
-    // Call the method with params (if provided)
-    console.error(\`Calling \${tool.module}.\${args.method} with params:\`, args.params);
-    
-    // Extract params, excluding the method field
-    const { method: _, params = {}, ...otherArgs } = args;
-    const callParams = { ...params, ...otherArgs };
-    
-    // Only pass parameters if there are any
+    console.error(\`Calling \${tool.module}.\${args.method}\`);
+
+    // Strip meta-fields from params before passing to API
+    const { confirm: _confirm, ...callParams } = params;
+
+    // Methods that take positional path parameters instead of a single object.
+    // Each entry maps method name to { required: [...], mapper: (params) => args[] }.
+    const positionalMethods = {
+      // Core - backup operations
+      'backupBackups':       { required: ['host'],                     mapper: (p) => [p.host] },
+      'backupDeleteBackup':  { required: ['backup'],                   mapper: (p) => [p.backup] },
+      'backupDiff':          { required: ['host', 'backup1', 'backup2'], mapper: (p) => [p.host, p.backup1, p.backup2] },
+      'backupDownload':      { required: ['host'],                     mapper: (p) => [p.host, p.backup] },
+      'backupRevertBackup':  { required: ['backup'],                   mapper: (p) => [p.backup] },
+      // Core - HA sync operations
+      'hasyncStatusRemoteService': { required: ['action', 'service', 'serviceId'], mapper: (p) => [p.action, p.service, p.serviceId] },
+      'hasyncStatusRestart':    { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
+      'hasyncStatusRestartAll': { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
+      'hasyncStatusStart':      { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
+      'hasyncStatusStop':       { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
+      // Core - service operations
+      'serviceRestart': { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
+      'serviceStart':   { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
+      'serviceStop':    { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
+      // Core - snapshot operations
+      'snapshotsActivate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'snapshotsDel':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'snapshotsGet':      { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'snapshotsSet':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Core - tunable operations
+      'tunablesDelItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'tunablesGetItem':  { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'tunablesSetItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // IDS - ruleset operations
+      'settingsToggleRuleset': { required: ['filenames', 'enabled'], mapper: (p) => [p.filenames, p.enabled, p.data || {}] },
+      'settingsSetRuleset':    { required: ['filename'],             mapper: (p) => [p.filename, p.data || {}] },
+      'settingsToggleRule':    { required: ['sid', 'enabled'],       mapper: (p) => [p.sid, p.enabled] },
+    };
+
+    const positionalDef = positionalMethods[args.method];
+    if (positionalDef) {
+      // Validate required positional parameters
+      const missing = positionalDef.required.filter(r => callParams[r] === undefined || callParams[r] === null);
+      if (missing.length > 0) {
+        throw new Error(\`Method '\${args.method}' requires parameter(s): \${missing.join(', ')}\`);
+      }
+      const positionalArgs = positionalDef.mapper(callParams);
+      return await method.call(moduleObj, ...positionalArgs);
+    }
+
+    // For non-positional methods: unwrap data if present, otherwise pass params as-is
     if (Object.keys(callParams).length > 0) {
-      return await method.call(moduleObj, callParams);
+      return await method.call(moduleObj, callParams.data || callParams);
     } else {
       return await method.call(moduleObj);
     }

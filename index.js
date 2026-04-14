@@ -124,11 +124,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -147,6 +147,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -357,11 +413,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -380,6 +436,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -448,11 +560,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -471,6 +583,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -627,11 +795,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -650,6 +818,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -734,11 +958,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -757,6 +981,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -803,11 +1083,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -826,6 +1106,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -870,11 +1206,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -893,6 +1229,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -939,11 +1331,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -962,6 +1354,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -1016,11 +1464,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -1039,6 +1487,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -1249,11 +1753,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -1272,6 +1776,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -1372,11 +1932,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -1395,6 +1955,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -1477,11 +2093,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -1500,6 +2116,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -1610,11 +2282,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -1633,6 +2305,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -1823,11 +2551,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -1846,6 +2574,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -1980,11 +2764,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2003,6 +2787,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2083,11 +2923,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2106,6 +2946,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2192,11 +3088,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2215,6 +3111,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2263,11 +3215,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2286,6 +3238,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2334,11 +3342,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2357,6 +3365,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2415,11 +3479,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2438,6 +3502,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2508,11 +3628,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2531,6 +3651,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2611,11 +3787,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2634,6 +3810,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2748,11 +3980,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2771,6 +4003,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -2857,11 +4145,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -2880,6 +4168,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3007,11 +4351,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3030,6 +4374,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3077,11 +4477,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3100,6 +4500,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3203,11 +4659,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3226,6 +4682,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3361,11 +4873,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3384,6 +4896,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3437,11 +5005,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3460,6 +5028,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3511,11 +5135,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3534,6 +5158,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3597,11 +5277,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3620,6 +5300,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3665,11 +5401,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3688,6 +5424,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3743,11 +5535,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3766,6 +5558,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3799,11 +5647,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3822,6 +5670,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3855,11 +5759,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3878,6 +5782,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -3911,11 +5871,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -3934,6 +5894,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4041,11 +6057,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4064,6 +6080,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4123,11 +6195,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4146,6 +6218,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4313,11 +6441,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4336,6 +6464,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4391,11 +6575,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4414,6 +6598,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4459,11 +6699,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4482,6 +6722,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4705,11 +7001,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4728,6 +7024,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4767,11 +7119,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4790,6 +7142,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4837,11 +7245,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4860,6 +7268,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4905,11 +7369,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4928,6 +7392,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -4975,11 +7495,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -4998,6 +7518,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5061,11 +7637,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5084,6 +7660,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5129,11 +7761,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5152,6 +7784,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5197,11 +7885,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5220,6 +7908,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5265,11 +8009,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5288,6 +8032,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5333,11 +8133,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5356,6 +8156,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5415,11 +8271,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5438,6 +8294,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5667,11 +8579,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5690,6 +8602,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5735,11 +8703,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5758,6 +8726,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5817,11 +8841,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5840,6 +8864,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5887,11 +8967,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5910,6 +8990,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -5957,11 +9093,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -5980,6 +9116,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -6025,11 +9217,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -6048,6 +9240,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -6211,11 +9459,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -6234,6 +9482,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -6361,11 +9665,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -6384,6 +9688,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -6429,11 +9789,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -6452,6 +9812,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -6497,11 +9913,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -6520,6 +9936,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -6565,11 +10037,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -6588,6 +10060,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -6885,11 +10413,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -6908,6 +10436,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7023,11 +10607,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7046,6 +10630,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7093,11 +10733,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7116,6 +10756,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7175,11 +10871,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7198,6 +10894,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7243,11 +10995,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7266,6 +11018,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7325,11 +11133,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7348,6 +11156,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7427,11 +11291,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7450,6 +11314,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7491,11 +11411,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7514,6 +11434,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7559,11 +11535,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7582,6 +11558,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7629,11 +11661,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7652,6 +11684,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7707,11 +11795,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7730,6 +11818,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7801,11 +11945,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7824,6 +11968,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7869,11 +12069,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7892,6 +12092,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -7959,11 +12215,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -7982,6 +12238,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8027,11 +12339,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8050,6 +12362,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8113,11 +12481,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8136,6 +12504,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8257,11 +12681,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8280,6 +12704,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8325,11 +12805,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8348,6 +12828,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8411,11 +12947,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8434,6 +12970,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8489,11 +13081,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8512,6 +13104,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8557,11 +13205,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8580,6 +13228,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8627,11 +13331,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8650,6 +13354,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8715,11 +13475,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8738,6 +13498,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8783,11 +13599,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8806,6 +13622,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -8857,11 +13729,11 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del operations)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
             },
             "data": {
               "type": "object",
-              "description": "Configuration data (for set operations)"
+              "description": "Configuration data (for set/add/reconfigure operations)"
             },
             "item": {
               "type": "object",
@@ -8880,6 +13752,62 @@ const TOOLS = [
               "type": "integer",
               "description": "Rows per page (for search operations)",
               "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
             }
           }
         }
@@ -11468,24 +16396,23 @@ class OPNsenseMCPServer {
         console.error('Tool call error:', {
           tool: tool.name,
           module: tool.module,
-          args,
+          method: args.method,
           error: error instanceof Error ? error.message : 'Unknown error',
-          stack: error instanceof Error ? error.stack : undefined
         });
-        
-        // Extract more details from axios errors
+
         let errorMessage = 'Unknown error';
         if (error instanceof Error) {
           errorMessage = error.message;
-          if (error.response) {
+          // Check for HTTP response errors (fetch/axios-style)
+          if ('response' in error && error.response && typeof error.response === 'object') {
             const response = error.response;
-            errorMessage = `HTTP ${response.status}: ${response.statusText}\n`;
+            errorMessage = `HTTP ${response.status}: ${response.statusText || 'Error'}\n`;
             if (response.data) {
               errorMessage += `Response: ${JSON.stringify(response.data, null, 2)}`;
             }
           }
         }
-        
+
         return {
           content: [{
             type: 'text',
@@ -11511,16 +16438,32 @@ class OPNsenseMCPServer {
 
   async callModularTool(tool, args) {
     const client = this.ensureClient();
-    
+
     // Validate method parameter
     if (!args.method) {
       throw new Error(`Missing required parameter 'method'. Available methods: ${tool.methods.join(', ')}`);
     }
-    
+
     if (!tool.methods.includes(args.method)) {
       throw new Error(`Invalid method '${args.method}'. Available methods: ${tool.methods.join(', ')}`);
     }
-    
+
+    const params = args.params || {};
+
+    // Destructive methods require explicit confirmation
+    const DESTRUCTIVE_METHODS = new Set([
+      'systemHalt', 'systemReboot',
+      'backupRevertBackup', 'backupDeleteBackup',
+    ]);
+
+    if (DESTRUCTIVE_METHODS.has(args.method) && params.confirm !== true) {
+      return {
+        warning: `${args.method} is a destructive operation that cannot be undone. Pass "confirm": true in params to proceed.`,
+        method: args.method,
+        confirmed: false,
+      };
+    }
+
     // Get the module
     let moduleObj;
     if (tool.module === 'plugins' && tool.submodule) {
@@ -11539,29 +16482,59 @@ class OPNsenseMCPServer {
       throw new Error(`Method ${args.method} not found in module ${tool.module}`);
     }
 
-    // Call the method with params (if provided)
-    console.error(`Calling ${tool.module}.${args.method} with params:`, args.params);
+    console.error(`Calling ${tool.module}.${args.method}`);
 
-    // Extract params, excluding the method field
-    const { method: _, params = {}, ...otherArgs } = args;
-    const callParams = { ...params, ...otherArgs };
+    // Strip meta-fields from params before passing to API
+    const { confirm: _confirm, ...callParams } = params;
 
-    // Methods that take positional path parameters instead of a single object
+    // Methods that take positional path parameters instead of a single object.
+    // Each entry maps method name to { required: [...], mapper: (params) => args[] }.
     const positionalMethods = {
-      'settingsToggleRuleset': (p) => [p.filenames, p.enabled, p.data || {}],
-      'settingsSetRuleset': (p) => [p.filename, p.data || {}],
-      'settingsToggleRule': (p) => [p.sid, p.enabled],
+      // Core - backup operations
+      'backupBackups':       { required: ['host'],                     mapper: (p) => [p.host] },
+      'backupDeleteBackup':  { required: ['backup'],                   mapper: (p) => [p.backup] },
+      'backupDiff':          { required: ['host', 'backup1', 'backup2'], mapper: (p) => [p.host, p.backup1, p.backup2] },
+      'backupDownload':      { required: ['host'],                     mapper: (p) => [p.host, p.backup] },
+      'backupRevertBackup':  { required: ['backup'],                   mapper: (p) => [p.backup] },
+      // Core - HA sync operations
+      'hasyncStatusRemoteService': { required: ['action', 'service', 'serviceId'], mapper: (p) => [p.action, p.service, p.serviceId] },
+      'hasyncStatusRestart':    { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
+      'hasyncStatusRestartAll': { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
+      'hasyncStatusStart':      { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
+      'hasyncStatusStop':       { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
+      // Core - service operations
+      'serviceRestart': { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
+      'serviceStart':   { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
+      'serviceStop':    { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
+      // Core - snapshot operations
+      'snapshotsActivate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'snapshotsDel':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'snapshotsGet':      { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'snapshotsSet':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Core - tunable operations
+      'tunablesDelItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'tunablesGetItem':  { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'tunablesSetItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // IDS - ruleset operations
+      'settingsToggleRuleset': { required: ['filenames', 'enabled'], mapper: (p) => [p.filenames, p.enabled, p.data || {}] },
+      'settingsSetRuleset':    { required: ['filename'],             mapper: (p) => [p.filename, p.data || {}] },
+      'settingsToggleRule':    { required: ['sid', 'enabled'],       mapper: (p) => [p.sid, p.enabled] },
     };
 
-    const positionalMapper = positionalMethods[args.method];
-    if (positionalMapper && Object.keys(callParams).length > 0) {
-      const positionalArgs = positionalMapper(callParams);
+    const positionalDef = positionalMethods[args.method];
+    if (positionalDef) {
+      // Validate required positional parameters
+      const missing = positionalDef.required.filter(r => callParams[r] === undefined || callParams[r] === null);
+      if (missing.length > 0) {
+        throw new Error(`Method '${args.method}' requires parameter(s): ${missing.join(', ')}`);
+      }
+      const positionalArgs = positionalDef.mapper(callParams);
       return await method.call(moduleObj, ...positionalArgs);
     }
 
-    // Only pass parameters if there are any
+    // For non-positional methods: unwrap data if present, otherwise pass params as-is
     if (Object.keys(callParams).length > 0) {
-      return await method.call(moduleObj, callParams);
+      return await method.call(moduleObj, callParams.data || callParams);
     } else {
       return await method.call(moduleObj);
     }
