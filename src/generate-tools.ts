@@ -51,7 +51,7 @@ function generateModularSchema(methods: string[]): any {
           },
           data: {
             type: 'object',
-            description: 'Configuration data (for set/add/reconfigure operations)'
+            description: 'Configuration data (for set/add/reconfigure operations). For Set methods on existing items (filterSetRule, aliasSetItem, etc.), you only need to provide the fields you want to change — the server auto-fetches the current state and merges your changes safely.'
           },
           item: {
             type: 'object',
@@ -126,6 +126,23 @@ function generateModularSchema(methods: string[]): any {
           sid: {
             type: 'string',
             description: 'Rule SID (for settingsToggleRule)'
+          },
+          // Firewall-specific parameters
+          targetUuid: {
+            type: 'string',
+            description: 'Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)'
+          },
+          rollbackRevision: {
+            type: 'string',
+            description: 'Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)'
+          },
+          revision: {
+            type: 'string',
+            description: 'Revision ID (for filterBaseRevert, dNatRevert)'
+          },
+          alias: {
+            type: 'string',
+            description: 'Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)'
           },
           // Safety gate
           confirm: {
