@@ -39,3 +39,6 @@ CLAUDE.md
 claude
 testing
 prompt.md
+.mcp.json
+*apikey*
+start-mcp.sh
