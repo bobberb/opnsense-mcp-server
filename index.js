@@ -3449,6 +3449,153 @@ const TOOLS = [
     }
   },
   {
+    "name": "radvd_manage",
+    "description": "Radvd management - 11 available methods including: serviceReconfigure, serviceRestart, serviceStart, serviceStatus, serviceStop...",
+    "module": "radvd",
+    "methods": [
+      "serviceReconfigure",
+      "serviceRestart",
+      "serviceStart",
+      "serviceStatus",
+      "serviceStop",
+      "settingsAddEntry",
+      "settingsDelEntry",
+      "settingsGetEntry",
+      "settingsSearchEntry",
+      "settingsSetEntry",
+      "settingsToggleEntry"
+    ],
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "The method to call on this module",
+          "enum": [
+            "serviceReconfigure",
+            "serviceRestart",
+            "serviceStart",
+            "serviceStatus",
+            "serviceStop",
+            "settingsAddEntry",
+            "settingsDelEntry",
+            "settingsGetEntry",
+            "settingsSearchEntry",
+            "settingsSetEntry",
+            "settingsToggleEntry"
+          ]
+        },
+        "params": {
+          "type": "object",
+          "description": "Parameters for the method (varies by method)",
+          "properties": {
+            "uuid": {
+              "type": "string",
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+            },
+            "data": {
+              "type": "object",
+              "description": "Configuration data (for set/add/reconfigure operations). For Set methods on existing items (filterSetRule, aliasSetItem, etc.), you only need to provide the fields you want to change — the server auto-fetches the current state and merges your changes safely."
+            },
+            "item": {
+              "type": "object",
+              "description": "Item data (for add/set operations)"
+            },
+            "searchPhrase": {
+              "type": "string",
+              "description": "Search phrase (for search operations)"
+            },
+            "current": {
+              "type": "integer",
+              "description": "Current page (for search operations)",
+              "default": 1
+            },
+            "rowCount": {
+              "type": "integer",
+              "description": "Rows per page (for search operations)",
+              "default": 20
+            },
+            "name": {
+              "type": "string",
+              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+            },
+            "id": {
+              "type": "string",
+              "description": "Service instance ID (optional for service operations)"
+            },
+            "host": {
+              "type": "string",
+              "description": "Host identifier (for backupBackups, backupDiff, backupDownload)"
+            },
+            "backup": {
+              "type": "string",
+              "description": "Backup identifier (for backupDeleteBackup, backupRevertBackup, backupDownload)"
+            },
+            "backup1": {
+              "type": "string",
+              "description": "First backup ID (for backupDiff)"
+            },
+            "backup2": {
+              "type": "string",
+              "description": "Second backup ID (for backupDiff)"
+            },
+            "action": {
+              "type": "string",
+              "description": "Action to perform (for hasyncStatusRemoteService)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service name (for hasync status operations)"
+            },
+            "serviceId": {
+              "type": "string",
+              "description": "Service ID (for hasync status operations)"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename (for settingsSetRuleset)"
+            },
+            "filenames": {
+              "type": "string",
+              "description": "Filenames (for settingsToggleRuleset)"
+            },
+            "enabled": {
+              "type": "string",
+              "description": "Enable/disable flag (for toggle operations)"
+            },
+            "sid": {
+              "type": "string",
+              "description": "Rule SID (for settingsToggleRule)"
+            },
+            "targetUuid": {
+              "type": "string",
+              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
+            },
+            "rollbackRevision": {
+              "type": "string",
+              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
+            },
+            "revision": {
+              "type": "string",
+              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+            },
+            "alias": {
+              "type": "string",
+              "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "confirm": {
+              "type": "boolean",
+              "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            }
+          }
+        }
+      },
+      "required": [
+        "method"
+      ]
+    }
+  },
+  {
     "name": "routes_manage",
     "description": "Routes management - 9 available methods including: gatewayStatus, routesAddroute, routesDelroute, routesGet, routesGetroute...",
     "module": "routes",
@@ -15970,6 +16117,22 @@ const METHOD_DOCS = {
       "serviceStopService"
     ]
   },
+  "radvd": {
+    "toolName": "radvd_manage",
+    "methods": [
+      "serviceReconfigure",
+      "serviceRestart",
+      "serviceStart",
+      "serviceStatus",
+      "serviceStop",
+      "settingsAddEntry",
+      "settingsDelEntry",
+      "settingsGetEntry",
+      "settingsSearchEntry",
+      "settingsSetEntry",
+      "settingsToggleEntry"
+    ]
+  },
   "routes": {
     "toolName": "routes_manage",
     "methods": [
@@ -18072,9 +18235,9 @@ class OPNsenseMCPServer {
     const transport = new StdioServerTransport();
     await this.server.connect(transport);
     console.error('OPNsense MCP server v0.6.0 (modular) started');
-    console.error(`Core tools: 24 modules`);
+    console.error(`Core tools: 25 modules`);
     console.error(`Plugin tools: 64 modules (${this.config.includePlugins ? 'enabled' : 'disabled'})`);
-    console.error(`Total available: ${this.config.includePlugins ? '88' : '24'} modules`);
+    console.error(`Total available: ${this.config.includePlugins ? '89' : '25'} modules`);
   }
 }
 
@@ -18144,10 +18307,10 @@ Environment Variables:
   INCLUDE_PLUGINS           Set to 'true' to include plugin tools
 
 Examples:
-  # Basic usage (24 core modules)
+  # Basic usage (25 core modules)
   opnsense-mcp-server --url https://192.168.1.1 --api-key mykey --api-secret mysecret
 
-  # With plugins enabled (88 total modules)
+  # With plugins enabled (89 total modules)
   opnsense-mcp-server --url https://192.168.1.1 --api-key mykey --api-secret mysecret --plugins
 
 Tool Usage:

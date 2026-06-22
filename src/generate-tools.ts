@@ -211,7 +211,7 @@ if (interfacesMethods.length > 0) {
 const directModules = [
   'captiveportal', 'cron', 'dhcpv4', 'dhcpv6', 'dhcrelay',
   'diagnostics', 'dnsmasq', 'firmware', 'ids', 'ipsec', 'kea',
-  'monit', 'openvpn', 'routes', 'routing', 'syslog',
+  'monit', 'openvpn', 'radvd', 'routes', 'routing', 'syslog',
   'trafficshaper', 'trust', 'unbound', 'wireguard'
 ];
 
