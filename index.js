@@ -230,7 +230,7 @@ const TOOLS = [
   },
   {
     "name": "firewall_manage",
-    "description": "Firewall management - 90 available methods including: aliasAddItem, aliasDelItem, aliasGet, aliasGetAliasUUID, aliasGetGeoIP...",
+    "description": "Firewall management - 96 available methods including: aliasAddItem, aliasDelItem, aliasGet, aliasGetAliasUUID, aliasGetGeoIP...",
     "module": "firewall",
     "methods": [
       "aliasAddItem",
@@ -301,11 +301,15 @@ const TOOLS = [
       "oneToOneGetRule",
       "oneToOneSetRule",
       "oneToOneToggleRule",
+      "oneToOneDownloadRules",
+      "oneToOneUploadRules",
       "sourceNatAddRule",
       "sourceNatDelRule",
       "sourceNatGetRule",
       "sourceNatSetRule",
       "sourceNatToggleRule",
+      "sourceNatDownloadRules",
+      "sourceNatUploadRules",
       "dNatAddRule",
       "dNatDelRule",
       "dNatGetRule",
@@ -322,7 +326,9 @@ const TOOLS = [
       "dNatListPortSelectOptions",
       "dNatRevert",
       "dNatSavepoint",
-      "dNatSet"
+      "dNatSet",
+      "dNatDownloadRules",
+      "dNatUploadRules"
     ],
     "inputSchema": {
       "type": "object",
@@ -399,11 +405,15 @@ const TOOLS = [
             "oneToOneGetRule",
             "oneToOneSetRule",
             "oneToOneToggleRule",
+            "oneToOneDownloadRules",
+            "oneToOneUploadRules",
             "sourceNatAddRule",
             "sourceNatDelRule",
             "sourceNatGetRule",
             "sourceNatSetRule",
             "sourceNatToggleRule",
+            "sourceNatDownloadRules",
+            "sourceNatUploadRules",
             "dNatAddRule",
             "dNatDelRule",
             "dNatGetRule",
@@ -420,7 +430,9 @@ const TOOLS = [
             "dNatListPortSelectOptions",
             "dNatRevert",
             "dNatSavepoint",
-            "dNatSet"
+            "dNatSet",
+            "dNatDownloadRules",
+            "dNatUploadRules"
           ]
         },
         "params": {
@@ -15498,11 +15510,15 @@ const METHOD_DOCS = {
       "oneToOneGetRule",
       "oneToOneSetRule",
       "oneToOneToggleRule",
+      "oneToOneDownloadRules",
+      "oneToOneUploadRules",
       "sourceNatAddRule",
       "sourceNatDelRule",
       "sourceNatGetRule",
       "sourceNatSetRule",
       "sourceNatToggleRule",
+      "sourceNatDownloadRules",
+      "sourceNatUploadRules",
       "dNatAddRule",
       "dNatDelRule",
       "dNatGetRule",
@@ -15519,7 +15535,9 @@ const METHOD_DOCS = {
       "dNatListPortSelectOptions",
       "dNatRevert",
       "dNatSavepoint",
-      "dNatSet"
+      "dNatSet",
+      "dNatDownloadRules",
+      "dNatUploadRules"
     ]
   },
   "auth": {
