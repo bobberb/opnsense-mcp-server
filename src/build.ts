@@ -199,6 +199,10 @@ class OPNsenseMCPServer {
       'oneToOneSetRule': 'oneToOneGetRule',
       'sourceNatSetRule': 'sourceNatGetRule',
       'dNatSetRule': 'dNatGetRule',
+      // 26.7 additions (UUID-based full-replacement Set endpoints)
+      'groupSettingsSet': 'groupSettingsGet',
+      'dhcpv4SetOption': 'dhcpv4GetOption',
+      'dhcpv6SetOption': 'dhcpv6GetOption',
     };
 
     const getMethodName = SET_GET_PAIRS[args.method];
@@ -287,9 +291,8 @@ class OPNsenseMCPServer {
       'filterToggleRuleLog':  { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
       'filterMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
       'filterBaseApply':      { required: [], mapper: (p) => p.rollbackRevision ? [p.rollbackRevision, p.data || {}] : [] },
-      'filterBaseCancelRollback': { required: ['rollbackRevision'], mapper: (p) => [p.rollbackRevision, p.data || {}] },
-      'filterBaseRevert':     { required: ['revision'], mapper: (p) => [p.revision, p.data || {}] },
       // Firewall - aliases
+      'aliasUpdate':      { required: ['action'], mapper: (p) => [p.action, p.data || {}] },
       'aliasGetItem':     { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
       'aliasSetItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       'aliasDelItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
@@ -326,7 +329,30 @@ class OPNsenseMCPServer {
       'dNatToggleRule':   { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
       'dNatToggleRuleLog': { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
       'dNatMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
-      'dNatRevert':       { required: ['revision'], mapper: (p) => [p.revision, p.data || {}] },
+      // Firewall - Outbound->SourceNat migration (26.7): all take a body only, handled by generic fallback
+      // Interfaces - assignments (26.7)
+      'assignmentGetItem': { required: [],         mapper: (p) => p.ifname ? [p.ifname] : [] },
+      'assignmentSetItem': { required: ['ifname'], mapper: (p) => [p.ifname, p.data || {}] },
+      'assignmentDelItem': { required: ['ifnames'], mapper: (p) => [p.ifnames, p.data || {}] },
+      // Routing - gateway groups (26.7)
+      'groupSettingsGet': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'groupSettingsSet': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'groupSettingsDel': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // CaptivePortal - templates (26.7)
+      'templateGetTemplate': { required: [],       mapper: (p) => p.fileid ? [p.fileid] : [] },
+      'templateDelTemplate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Diagnostics - system health (26.7)
+      'systemhealthDelRRD': { required: ['report'], mapper: (p) => [p.report, p.data || {}] },
+      // Kea - DHCP options (26.7)
+      'dhcpv4GetOption': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'dhcpv4SetOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'dhcpv4DelOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'dhcpv6GetOption': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'dhcpv6SetOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'dhcpv6DelOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Kea - lease deletion (26.7)
+      'leases4DelLease': { required: ['ips'], mapper: (p) => [p.ips, p.data || {}] },
+      'leases6DelLease': { required: ['ips'], mapper: (p) => [p.ips, p.data || {}] },
     };
 
     const positionalDef = positionalMethods[args.method];

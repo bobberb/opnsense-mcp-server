@@ -144,6 +144,27 @@ function generateModularSchema(methods: string[]): any {
             type: 'string',
             description: 'Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)'
           },
+          // Path parameters (26.7 additions)
+          ifname: {
+            type: 'string',
+            description: 'Interface identifier (for assignmentGetItem, assignmentSetItem)'
+          },
+          ifnames: {
+            type: 'string',
+            description: 'Comma-separated interface identifiers (for assignmentDelItem)'
+          },
+          fileid: {
+            type: 'string',
+            description: 'Template file id (for templateGetTemplate)'
+          },
+          report: {
+            type: 'string',
+            description: 'RRD report name (for systemhealthDelRRD)'
+          },
+          ips: {
+            type: 'string',
+            description: 'IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)'
+          },
           // Safety gate
           confirm: {
             type: 'boolean',

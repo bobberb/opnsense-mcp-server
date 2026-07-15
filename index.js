@@ -216,6 +216,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -230,7 +250,7 @@ const TOOLS = [
   },
   {
     "name": "firewall_manage",
-    "description": "Firewall management - 96 available methods including: aliasAddItem, aliasDelItem, aliasGet, aliasGetAliasUUID, aliasGetGeoIP...",
+    "description": "Firewall management - 102 available methods including: aliasAddItem, aliasDelItem, aliasGet, aliasGetAliasUUID, aliasGetGeoIP...",
     "module": "firewall",
     "methods": [
       "aliasAddItem",
@@ -255,20 +275,19 @@ const TOOLS = [
       "aliasUtilFindReferences",
       "aliasUtilFlush",
       "aliasUtilList",
-      "aliasUtilUpdateBogons",
+      "aliasUpdate",
       "categoryAddItem",
+      "categoryDownload",
+      "categoryUpload",
       "categoryDelItem",
       "categoryGet",
       "categoryGetItem",
       "categorySet",
       "categorySetItem",
       "filterBaseApply",
-      "filterBaseCancelRollback",
       "filterBaseGet",
       "filterBaseListCategories",
       "filterBaseListNetworkSelectOptions",
-      "filterBaseRevert",
-      "filterBaseSavepoint",
       "filterBaseSet",
       "filterAddRule",
       "filterDelRule",
@@ -296,6 +315,8 @@ const TOOLS = [
       "nptGetRule",
       "nptSetRule",
       "nptToggleRule",
+      "nptDownloadRules",
+      "nptUploadRules",
       "oneToOneAddRule",
       "oneToOneDelRule",
       "oneToOneGetRule",
@@ -310,6 +331,8 @@ const TOOLS = [
       "sourceNatToggleRule",
       "sourceNatDownloadRules",
       "sourceNatUploadRules",
+      "sourceNatGet",
+      "sourceNatSet",
       "dNatAddRule",
       "dNatDelRule",
       "dNatGetRule",
@@ -319,16 +342,19 @@ const TOOLS = [
       "dNatToggleRule",
       "dNatToggleRuleLog",
       "dNatApply",
-      "dNatCancelRollback",
       "dNatGet",
       "dNatListCategories",
       "dNatListNetworkSelectOptions",
       "dNatListPortSelectOptions",
-      "dNatRevert",
-      "dNatSavepoint",
       "dNatSet",
       "dNatDownloadRules",
-      "dNatUploadRules"
+      "dNatUploadRules",
+      "migrationDownloadRules",
+      "migrationCountRules",
+      "migrationFlush",
+      "migrationDownloadOutbound",
+      "migrationCountOutbound",
+      "migrationFlushOutbound"
     ],
     "inputSchema": {
       "type": "object",
@@ -359,20 +385,19 @@ const TOOLS = [
             "aliasUtilFindReferences",
             "aliasUtilFlush",
             "aliasUtilList",
-            "aliasUtilUpdateBogons",
+            "aliasUpdate",
             "categoryAddItem",
+            "categoryDownload",
+            "categoryUpload",
             "categoryDelItem",
             "categoryGet",
             "categoryGetItem",
             "categorySet",
             "categorySetItem",
             "filterBaseApply",
-            "filterBaseCancelRollback",
             "filterBaseGet",
             "filterBaseListCategories",
             "filterBaseListNetworkSelectOptions",
-            "filterBaseRevert",
-            "filterBaseSavepoint",
             "filterBaseSet",
             "filterAddRule",
             "filterDelRule",
@@ -400,6 +425,8 @@ const TOOLS = [
             "nptGetRule",
             "nptSetRule",
             "nptToggleRule",
+            "nptDownloadRules",
+            "nptUploadRules",
             "oneToOneAddRule",
             "oneToOneDelRule",
             "oneToOneGetRule",
@@ -414,6 +441,8 @@ const TOOLS = [
             "sourceNatToggleRule",
             "sourceNatDownloadRules",
             "sourceNatUploadRules",
+            "sourceNatGet",
+            "sourceNatSet",
             "dNatAddRule",
             "dNatDelRule",
             "dNatGetRule",
@@ -423,16 +452,19 @@ const TOOLS = [
             "dNatToggleRule",
             "dNatToggleRuleLog",
             "dNatApply",
-            "dNatCancelRollback",
             "dNatGet",
             "dNatListCategories",
             "dNatListNetworkSelectOptions",
             "dNatListPortSelectOptions",
-            "dNatRevert",
-            "dNatSavepoint",
             "dNatSet",
             "dNatDownloadRules",
-            "dNatUploadRules"
+            "dNatUploadRules",
+            "migrationDownloadRules",
+            "migrationCountRules",
+            "migrationFlush",
+            "migrationDownloadOutbound",
+            "migrationCountOutbound",
+            "migrationFlushOutbound"
           ]
         },
         "params": {
@@ -532,6 +564,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -696,6 +748,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -710,7 +782,7 @@ const TOOLS = [
   },
   {
     "name": "interfaces_manage",
-    "description": "Network interfaces management - 63 available methods including: gifSettingsAddItem, gifSettingsDelItem, gifSettingsGet, gifSettingsGetIfOptions, gifSettingsGetItem...",
+    "description": "Network interfaces management - 69 available methods including: gifSettingsAddItem, gifSettingsDelItem, gifSettingsGet, gifSettingsGetIfOptions, gifSettingsGetItem...",
     "module": "interfaces",
     "methods": [
       "gifSettingsAddItem",
@@ -775,7 +847,13 @@ const TOOLS = [
       "vxlanSettingsGetItem",
       "vxlanSettingsReconfigure",
       "vxlanSettingsSet",
-      "vxlanSettingsSetItem"
+      "vxlanSettingsSetItem",
+      "assignmentAddItem",
+      "assignmentDelItem",
+      "assignmentGetItem",
+      "assignmentReconfigure",
+      "assignmentSearchItem",
+      "assignmentSetItem"
     ],
     "inputSchema": {
       "type": "object",
@@ -846,7 +924,13 @@ const TOOLS = [
             "vxlanSettingsGetItem",
             "vxlanSettingsReconfigure",
             "vxlanSettingsSet",
-            "vxlanSettingsSetItem"
+            "vxlanSettingsSetItem",
+            "assignmentAddItem",
+            "assignmentDelItem",
+            "assignmentGetItem",
+            "assignmentReconfigure",
+            "assignmentSearchItem",
+            "assignmentSetItem"
           ]
         },
         "params": {
@@ -947,6 +1031,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -961,17 +1065,17 @@ const TOOLS = [
   },
   {
     "name": "captiveportal_manage",
-    "description": "Captiveportal management - 27 available methods including: accessApi, accessLogoff, accessLogon, serviceDelTemplate, serviceGetTemplate...",
+    "description": "Captiveportal management - 27 available methods including: accessApi, accessLogoff, accessLogon, serviceReconfigure, templateDelTemplate...",
     "module": "captiveportal",
     "methods": [
       "accessApi",
       "accessLogoff",
       "accessLogon",
-      "serviceDelTemplate",
-      "serviceGetTemplate",
       "serviceReconfigure",
-      "serviceSaveTemplate",
-      "serviceSearchTemplates",
+      "templateDelTemplate",
+      "templateGetTemplate",
+      "templateSaveTemplate",
+      "templateSearchTemplates",
       "sessionConnect",
       "sessionDisconnect",
       "sessionList",
@@ -1002,11 +1106,11 @@ const TOOLS = [
             "accessApi",
             "accessLogoff",
             "accessLogon",
-            "serviceDelTemplate",
-            "serviceGetTemplate",
             "serviceReconfigure",
-            "serviceSaveTemplate",
-            "serviceSearchTemplates",
+            "templateDelTemplate",
+            "templateGetTemplate",
+            "templateSaveTemplate",
+            "templateSearchTemplates",
             "sessionConnect",
             "sessionDisconnect",
             "sessionList",
@@ -1125,6 +1229,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -1267,6 +1391,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -1405,6 +1549,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -1546,6 +1710,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -1696,6 +1880,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -1710,7 +1914,7 @@ const TOOLS = [
   },
   {
     "name": "diagnostics_manage",
-    "description": "Diagnostics management - 90 available methods including: activityGetActivity, cpuUsageGetCPUType, cpuUsageStream, dnsReverseLookup, dnsDiagnosticsGet...",
+    "description": "Diagnostics management - 93 available methods including: activityGetActivity, cpuUsageGetCPUType, cpuUsageStream, dnsReverseLookup, dnsDiagnosticsGet...",
     "module": "diagnostics",
     "methods": [
       "activityGetActivity",
@@ -1762,6 +1966,7 @@ const TOOLS = [
       "netflowReconfigure",
       "netflowSetconfig",
       "netflowStatus",
+      "netflowReset",
       "networkinsightExport",
       "networkinsightGetInterfaces",
       "networkinsightGetMetadata",
@@ -1798,6 +2003,8 @@ const TOOLS = [
       "systemhealthGetInterfaces",
       "systemhealthGetRRDlist",
       "systemhealthGetSystemHealth",
+      "systemhealthDelRRD",
+      "systemhealthReconfigure",
       "tracerouteGet",
       "tracerouteSet",
       "trafficInterface",
@@ -1860,6 +2067,7 @@ const TOOLS = [
             "netflowReconfigure",
             "netflowSetconfig",
             "netflowStatus",
+            "netflowReset",
             "networkinsightExport",
             "networkinsightGetInterfaces",
             "networkinsightGetMetadata",
@@ -1896,6 +2104,8 @@ const TOOLS = [
             "systemhealthGetInterfaces",
             "systemhealthGetRRDlist",
             "systemhealthGetSystemHealth",
+            "systemhealthDelRRD",
+            "systemhealthReconfigure",
             "tracerouteGet",
             "tracerouteSet",
             "trafficInterface",
@@ -2000,6 +2210,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -2196,6 +2426,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -2372,6 +2622,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -2577,6 +2847,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -2863,6 +3153,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -2877,11 +3187,12 @@ const TOOLS = [
   },
   {
     "name": "kea_manage",
-    "description": "Kea management - 52 available methods including: ctrlAgentGet, ctrlAgentSet, dhcpv4AddPeer, dhcpv4AddReservation, dhcpv4AddSubnet...",
+    "description": "Kea management - 65 available methods including: ctrlAgentGet, ctrlAgentSet, ddnsGet, dhcpv4AddPeer, dhcpv4AddReservation...",
     "module": "kea",
     "methods": [
       "ctrlAgentGet",
       "ctrlAgentSet",
+      "ddnsGet",
       "dhcpv4AddPeer",
       "dhcpv4AddReservation",
       "dhcpv4AddSubnet",
@@ -2901,7 +3212,13 @@ const TOOLS = [
       "dhcpv4SearchPeer",
       "dhcpv4SearchReservation",
       "dhcpv4SearchSubnet",
+      "dhcpv4AddOption",
+      "dhcpv4DelOption",
+      "dhcpv4GetOption",
+      "dhcpv4SetOption",
+      "dhcpv4SearchOption",
       "leases4Search",
+      "leases4DelLease",
       "dhcpv6AddPeer",
       "dhcpv6AddReservation",
       "dhcpv6AddSubnet",
@@ -2926,7 +3243,13 @@ const TOOLS = [
       "dhcpv6SearchPeer",
       "dhcpv6SearchReservation",
       "dhcpv6SearchSubnet",
+      "dhcpv6AddOption",
+      "dhcpv6DelOption",
+      "dhcpv6GetOption",
+      "dhcpv6SetOption",
+      "dhcpv6SearchOption",
       "leases6Search",
+      "leases6DelLease",
       "serviceReconfigure",
       "serviceRestart",
       "serviceStart",
@@ -2942,6 +3265,7 @@ const TOOLS = [
           "enum": [
             "ctrlAgentGet",
             "ctrlAgentSet",
+            "ddnsGet",
             "dhcpv4AddPeer",
             "dhcpv4AddReservation",
             "dhcpv4AddSubnet",
@@ -2961,7 +3285,13 @@ const TOOLS = [
             "dhcpv4SearchPeer",
             "dhcpv4SearchReservation",
             "dhcpv4SearchSubnet",
+            "dhcpv4AddOption",
+            "dhcpv4DelOption",
+            "dhcpv4GetOption",
+            "dhcpv4SetOption",
+            "dhcpv4SearchOption",
             "leases4Search",
+            "leases4DelLease",
             "dhcpv6AddPeer",
             "dhcpv6AddReservation",
             "dhcpv6AddSubnet",
@@ -2986,7 +3316,13 @@ const TOOLS = [
             "dhcpv6SearchPeer",
             "dhcpv6SearchReservation",
             "dhcpv6SearchSubnet",
+            "dhcpv6AddOption",
+            "dhcpv6DelOption",
+            "dhcpv6GetOption",
+            "dhcpv6SetOption",
+            "dhcpv6SearchOption",
             "leases6Search",
+            "leases6DelLease",
             "serviceReconfigure",
             "serviceRestart",
             "serviceStart",
@@ -3091,6 +3427,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -3266,6 +3622,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -3448,6 +3824,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -3595,6 +3991,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -3738,6 +4154,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -3752,7 +4188,7 @@ const TOOLS = [
   },
   {
     "name": "routing_manage",
-    "description": "Routing management - 9 available methods including: settingsAddGateway, settingsDelGateway, settingsGet, settingsGetGateway, settingsReconfigure...",
+    "description": "Routing management - 15 available methods including: settingsAddGateway, settingsDelGateway, settingsGet, settingsGetGateway, settingsReconfigure...",
     "module": "routing",
     "methods": [
       "settingsAddGateway",
@@ -3763,7 +4199,13 @@ const TOOLS = [
       "settingsSearchGateway",
       "settingsSet",
       "settingsSetGateway",
-      "settingsToggleGateway"
+      "settingsToggleGateway",
+      "groupSettingsAdd",
+      "groupSettingsDel",
+      "groupSettingsGet",
+      "groupSettingsReconfigure",
+      "groupSettingsSearch",
+      "groupSettingsSet"
     ],
     "inputSchema": {
       "type": "object",
@@ -3780,7 +4222,13 @@ const TOOLS = [
             "settingsSearchGateway",
             "settingsSet",
             "settingsSetGateway",
-            "settingsToggleGateway"
+            "settingsToggleGateway",
+            "groupSettingsAdd",
+            "groupSettingsDel",
+            "groupSettingsGet",
+            "groupSettingsReconfigure",
+            "groupSettingsSearch",
+            "groupSettingsSet"
           ]
         },
         "params": {
@@ -3880,6 +4328,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -4033,6 +4501,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -4198,6 +4686,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -4374,6 +4882,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -4388,7 +4916,7 @@ const TOOLS = [
   },
   {
     "name": "unbound_manage",
-    "description": "Unbound management - 42 available methods including: diagnosticsDumpcache, diagnosticsDumpinfra, diagnosticsListinsecure, diagnosticsListlocaldata, diagnosticsListlocalzones...",
+    "description": "Unbound management - 43 available methods including: diagnosticsDumpcache, diagnosticsDumpinfra, diagnosticsListinsecure, diagnosticsListlocaldata, diagnosticsListlocalzones...",
     "module": "unbound",
     "methods": [
       "diagnosticsDumpcache",
@@ -4402,6 +4930,7 @@ const TOOLS = [
       "overviewIsEnabled",
       "overviewSearchQueries",
       "overviewTotals",
+      "overviewReset",
       "serviceDnsbl",
       "serviceReconfigure",
       "serviceReconfigureGeneral",
@@ -4452,6 +4981,7 @@ const TOOLS = [
             "overviewIsEnabled",
             "overviewSearchQueries",
             "overviewTotals",
+            "overviewReset",
             "serviceDnsbl",
             "serviceReconfigure",
             "serviceReconfigureGeneral",
@@ -4582,6 +5112,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -4763,6 +5313,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -4986,6 +5556,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -5127,6 +5717,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -5325,6 +5935,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -5556,6 +6186,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -5704,6 +6354,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -5849,6 +6519,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -6008,6 +6698,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -6147,6 +6857,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -6298,6 +7028,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -6425,6 +7175,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -6554,6 +7324,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -6681,6 +7471,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -6884,6 +7694,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -7037,6 +7867,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -7300,6 +8150,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -7450,6 +8320,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -7589,6 +8479,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -7908,6 +8818,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -8041,6 +8971,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -8184,6 +9134,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -8323,6 +9293,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -8465,6 +9455,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -8624,6 +9634,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -8763,6 +9793,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -8904,6 +9954,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -9044,6 +10114,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -9183,6 +10273,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -9337,6 +10447,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -9662,6 +10792,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -9801,6 +10951,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -9956,6 +11126,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -10097,6 +11287,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -10240,6 +11450,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -10379,6 +11609,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -10638,6 +11888,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -10860,6 +12130,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -10999,6 +12289,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -11140,6 +12450,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -11279,6 +12609,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -11672,6 +13022,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -11882,6 +13252,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -12023,6 +13413,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -12178,6 +13588,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -12317,6 +13747,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -12471,6 +13921,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -12646,6 +14116,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -12781,6 +14271,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -12921,6 +14431,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -13063,6 +14593,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -13213,6 +14763,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -13380,6 +14950,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -13519,6 +15109,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -13682,6 +15292,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -13821,6 +15451,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -13979,6 +15629,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -14196,6 +15866,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -14335,6 +16025,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -14494,6 +16204,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -14644,6 +16374,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -14783,6 +16533,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -14925,6 +16695,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -15086,6 +16876,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -15225,6 +17035,26 @@ const TOOLS = [
             "alias": {
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
+            },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
             },
             "confirm": {
               "type": "boolean",
@@ -15372,6 +17202,26 @@ const TOOLS = [
               "type": "string",
               "description": "Alias name (for aliasUtilAdd, aliasUtilDelete, aliasUtilFlush, aliasUtilList)"
             },
+            "ifname": {
+              "type": "string",
+              "description": "Interface identifier (for assignmentGetItem, assignmentSetItem)"
+            },
+            "ifnames": {
+              "type": "string",
+              "description": "Comma-separated interface identifiers (for assignmentDelItem)"
+            },
+            "fileid": {
+              "type": "string",
+              "description": "Template file id (for templateGetTemplate)"
+            },
+            "report": {
+              "type": "string",
+              "description": "RRD report name (for systemhealthDelRRD)"
+            },
+            "ips": {
+              "type": "string",
+              "description": "IP address(es) of a Kea lease (for leases4DelLease, leases6DelLease)"
+            },
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
@@ -15464,20 +17314,19 @@ const METHOD_DOCS = {
       "aliasUtilFindReferences",
       "aliasUtilFlush",
       "aliasUtilList",
-      "aliasUtilUpdateBogons",
+      "aliasUpdate",
       "categoryAddItem",
+      "categoryDownload",
+      "categoryUpload",
       "categoryDelItem",
       "categoryGet",
       "categoryGetItem",
       "categorySet",
       "categorySetItem",
       "filterBaseApply",
-      "filterBaseCancelRollback",
       "filterBaseGet",
       "filterBaseListCategories",
       "filterBaseListNetworkSelectOptions",
-      "filterBaseRevert",
-      "filterBaseSavepoint",
       "filterBaseSet",
       "filterAddRule",
       "filterDelRule",
@@ -15505,6 +17354,8 @@ const METHOD_DOCS = {
       "nptGetRule",
       "nptSetRule",
       "nptToggleRule",
+      "nptDownloadRules",
+      "nptUploadRules",
       "oneToOneAddRule",
       "oneToOneDelRule",
       "oneToOneGetRule",
@@ -15519,6 +17370,8 @@ const METHOD_DOCS = {
       "sourceNatToggleRule",
       "sourceNatDownloadRules",
       "sourceNatUploadRules",
+      "sourceNatGet",
+      "sourceNatSet",
       "dNatAddRule",
       "dNatDelRule",
       "dNatGetRule",
@@ -15528,16 +17381,19 @@ const METHOD_DOCS = {
       "dNatToggleRule",
       "dNatToggleRuleLog",
       "dNatApply",
-      "dNatCancelRollback",
       "dNatGet",
       "dNatListCategories",
       "dNatListNetworkSelectOptions",
       "dNatListPortSelectOptions",
-      "dNatRevert",
-      "dNatSavepoint",
       "dNatSet",
       "dNatDownloadRules",
-      "dNatUploadRules"
+      "dNatUploadRules",
+      "migrationDownloadRules",
+      "migrationCountRules",
+      "migrationFlush",
+      "migrationDownloadOutbound",
+      "migrationCountOutbound",
+      "migrationFlushOutbound"
     ]
   },
   "auth": {
@@ -15629,7 +17485,13 @@ const METHOD_DOCS = {
       "vxlanSettingsGetItem",
       "vxlanSettingsReconfigure",
       "vxlanSettingsSet",
-      "vxlanSettingsSetItem"
+      "vxlanSettingsSetItem",
+      "assignmentAddItem",
+      "assignmentDelItem",
+      "assignmentGetItem",
+      "assignmentReconfigure",
+      "assignmentSearchItem",
+      "assignmentSetItem"
     ]
   },
   "captiveportal": {
@@ -15638,11 +17500,11 @@ const METHOD_DOCS = {
       "accessApi",
       "accessLogoff",
       "accessLogon",
-      "serviceDelTemplate",
-      "serviceGetTemplate",
       "serviceReconfigure",
-      "serviceSaveTemplate",
-      "serviceSearchTemplates",
+      "templateDelTemplate",
+      "templateGetTemplate",
+      "templateSaveTemplate",
+      "templateSearchTemplates",
       "sessionConnect",
       "sessionDisconnect",
       "sessionList",
@@ -15771,6 +17633,7 @@ const METHOD_DOCS = {
       "netflowReconfigure",
       "netflowSetconfig",
       "netflowStatus",
+      "netflowReset",
       "networkinsightExport",
       "networkinsightGetInterfaces",
       "networkinsightGetMetadata",
@@ -15807,6 +17670,8 @@ const METHOD_DOCS = {
       "systemhealthGetInterfaces",
       "systemhealthGetRRDlist",
       "systemhealthGetSystemHealth",
+      "systemhealthDelRRD",
+      "systemhealthReconfigure",
       "tracerouteGet",
       "tracerouteSet",
       "trafficInterface",
@@ -16020,6 +17885,7 @@ const METHOD_DOCS = {
     "methods": [
       "ctrlAgentGet",
       "ctrlAgentSet",
+      "ddnsGet",
       "dhcpv4AddPeer",
       "dhcpv4AddReservation",
       "dhcpv4AddSubnet",
@@ -16039,7 +17905,13 @@ const METHOD_DOCS = {
       "dhcpv4SearchPeer",
       "dhcpv4SearchReservation",
       "dhcpv4SearchSubnet",
+      "dhcpv4AddOption",
+      "dhcpv4DelOption",
+      "dhcpv4GetOption",
+      "dhcpv4SetOption",
+      "dhcpv4SearchOption",
       "leases4Search",
+      "leases4DelLease",
       "dhcpv6AddPeer",
       "dhcpv6AddReservation",
       "dhcpv6AddSubnet",
@@ -16064,7 +17936,13 @@ const METHOD_DOCS = {
       "dhcpv6SearchPeer",
       "dhcpv6SearchReservation",
       "dhcpv6SearchSubnet",
+      "dhcpv6AddOption",
+      "dhcpv6DelOption",
+      "dhcpv6GetOption",
+      "dhcpv6SetOption",
+      "dhcpv6SearchOption",
       "leases6Search",
+      "leases6DelLease",
       "serviceReconfigure",
       "serviceRestart",
       "serviceStart",
@@ -16176,7 +18054,13 @@ const METHOD_DOCS = {
       "settingsSearchGateway",
       "settingsSet",
       "settingsSetGateway",
-      "settingsToggleGateway"
+      "settingsToggleGateway",
+      "groupSettingsAdd",
+      "groupSettingsDel",
+      "groupSettingsGet",
+      "groupSettingsReconfigure",
+      "groupSettingsSearch",
+      "groupSettingsSet"
     ]
   },
   "syslog": {
@@ -16267,6 +18151,7 @@ const METHOD_DOCS = {
       "overviewIsEnabled",
       "overviewSearchQueries",
       "overviewTotals",
+      "overviewReset",
       "serviceDnsbl",
       "serviceReconfigure",
       "serviceReconfigureGeneral",
@@ -18100,6 +19985,10 @@ class OPNsenseMCPServer {
       'oneToOneSetRule': 'oneToOneGetRule',
       'sourceNatSetRule': 'sourceNatGetRule',
       'dNatSetRule': 'dNatGetRule',
+      // 26.7 additions (UUID-based full-replacement Set endpoints)
+      'groupSettingsSet': 'groupSettingsGet',
+      'dhcpv4SetOption': 'dhcpv4GetOption',
+      'dhcpv6SetOption': 'dhcpv6GetOption',
     };
 
     const getMethodName = SET_GET_PAIRS[args.method];
@@ -18188,9 +20077,8 @@ class OPNsenseMCPServer {
       'filterToggleRuleLog':  { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
       'filterMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
       'filterBaseApply':      { required: [], mapper: (p) => p.rollbackRevision ? [p.rollbackRevision, p.data || {}] : [] },
-      'filterBaseCancelRollback': { required: ['rollbackRevision'], mapper: (p) => [p.rollbackRevision, p.data || {}] },
-      'filterBaseRevert':     { required: ['revision'], mapper: (p) => [p.revision, p.data || {}] },
       // Firewall - aliases
+      'aliasUpdate':      { required: ['action'], mapper: (p) => [p.action, p.data || {}] },
       'aliasGetItem':     { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
       'aliasSetItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       'aliasDelItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
@@ -18227,7 +20115,30 @@ class OPNsenseMCPServer {
       'dNatToggleRule':   { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
       'dNatToggleRuleLog': { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
       'dNatMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
-      'dNatRevert':       { required: ['revision'], mapper: (p) => [p.revision, p.data || {}] },
+      // Firewall - Outbound->SourceNat migration (26.7): all take a body only, handled by generic fallback
+      // Interfaces - assignments (26.7)
+      'assignmentGetItem': { required: [],         mapper: (p) => p.ifname ? [p.ifname] : [] },
+      'assignmentSetItem': { required: ['ifname'], mapper: (p) => [p.ifname, p.data || {}] },
+      'assignmentDelItem': { required: ['ifnames'], mapper: (p) => [p.ifnames, p.data || {}] },
+      // Routing - gateway groups (26.7)
+      'groupSettingsGet': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'groupSettingsSet': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'groupSettingsDel': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // CaptivePortal - templates (26.7)
+      'templateGetTemplate': { required: [],       mapper: (p) => p.fileid ? [p.fileid] : [] },
+      'templateDelTemplate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Diagnostics - system health (26.7)
+      'systemhealthDelRRD': { required: ['report'], mapper: (p) => [p.report, p.data || {}] },
+      // Kea - DHCP options (26.7)
+      'dhcpv4GetOption': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'dhcpv4SetOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'dhcpv4DelOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'dhcpv6GetOption': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'dhcpv6SetOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'dhcpv6DelOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Kea - lease deletion (26.7)
+      'leases4DelLease': { required: ['ips'], mapper: (p) => [p.ips, p.data || {}] },
+      'leases6DelLease': { required: ['ips'], mapper: (p) => [p.ips, p.data || {}] },
     };
 
     const positionalDef = positionalMethods[args.method];
