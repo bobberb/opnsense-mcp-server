@@ -13,7 +13,7 @@ import { OPNsenseClient } from '@richard-stovall/opnsense-typescript-client';
 const TOOLS = [
   {
     "name": "core_manage",
-    "description": "Core system management - 46 available methods including: backupBackups, backupDeleteBackup, backupDiff, backupDownload, backupProviders...",
+    "description": "Core system management - 47 available methods including: backupBackups, backupDeleteBackup, backupDiff, backupDownload, backupProviders...",
     "module": "core",
     "methods": [
       "backupBackups",
@@ -39,6 +39,7 @@ const TOOLS = [
       "hasyncStatusVersion",
       "menuSearch",
       "menuTree",
+      "menuSetFavorite",
       "serviceRestart",
       "serviceSearch",
       "serviceStart",
@@ -93,6 +94,7 @@ const TOOLS = [
             "hasyncStatusVersion",
             "menuSearch",
             "menuTree",
+            "menuSetFavorite",
             "serviceRestart",
             "serviceSearch",
             "serviceStart",
@@ -124,7 +126,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -202,15 +204,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -473,7 +467,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -551,15 +545,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -656,7 +642,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -734,15 +720,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -782,7 +760,7 @@ const TOOLS = [
   },
   {
     "name": "interfaces_manage",
-    "description": "Network interfaces management - 69 available methods including: gifSettingsAddItem, gifSettingsDelItem, gifSettingsGet, gifSettingsGetIfOptions, gifSettingsGetItem...",
+    "description": "Network interfaces management - 78 available methods including: gifSettingsAddItem, gifSettingsDelItem, gifSettingsGet, gifSettingsGetIfOptions, gifSettingsGetItem...",
     "module": "interfaces",
     "methods": [
       "gifSettingsAddItem",
@@ -848,8 +826,17 @@ const TOOLS = [
       "vxlanSettingsReconfigure",
       "vxlanSettingsSet",
       "vxlanSettingsSetItem",
+      "wirelessSettingsAddItem",
+      "wirelessSettingsDelItem",
+      "wirelessSettingsGet",
+      "wirelessSettingsGetItem",
+      "wirelessSettingsReconfigure",
+      "wirelessSettingsSearchItem",
+      "wirelessSettingsSet",
+      "wirelessSettingsSetItem",
       "assignmentAddItem",
       "assignmentDelItem",
+      "assignmentPending",
       "assignmentGetItem",
       "assignmentReconfigure",
       "assignmentSearchItem",
@@ -925,8 +912,17 @@ const TOOLS = [
             "vxlanSettingsReconfigure",
             "vxlanSettingsSet",
             "vxlanSettingsSetItem",
+            "wirelessSettingsAddItem",
+            "wirelessSettingsDelItem",
+            "wirelessSettingsGet",
+            "wirelessSettingsGetItem",
+            "wirelessSettingsReconfigure",
+            "wirelessSettingsSearchItem",
+            "wirelessSettingsSet",
+            "wirelessSettingsSetItem",
             "assignmentAddItem",
             "assignmentDelItem",
+            "assignmentPending",
             "assignmentGetItem",
             "assignmentReconfigure",
             "assignmentSearchItem",
@@ -939,7 +935,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -1017,15 +1013,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -1138,7 +1126,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -1216,15 +1204,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -1299,7 +1279,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -1377,15 +1357,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -1458,7 +1430,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -1536,15 +1508,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -1619,7 +1583,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -1697,15 +1661,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -1788,7 +1744,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -1866,15 +1822,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -2119,7 +2067,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -2197,15 +2145,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -2334,7 +2274,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -2412,15 +2352,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -2531,7 +2463,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -2609,15 +2541,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -2756,7 +2680,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -2834,15 +2758,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -3061,7 +2977,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -3139,15 +3055,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -3336,7 +3244,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -3414,15 +3322,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -3462,10 +3362,9 @@ const TOOLS = [
   },
   {
     "name": "monit_manage",
-    "description": "Monit management - 25 available methods including: serviceCheck, serviceReconfigure, serviceRestart, serviceStart, serviceStatus...",
+    "description": "Monit management - 23 available methods including: serviceReconfigure, serviceRestart, serviceStart, serviceStatus, serviceStop...",
     "module": "monit",
     "methods": [
-      "serviceCheck",
       "serviceReconfigure",
       "serviceRestart",
       "serviceStart",
@@ -3477,7 +3376,6 @@ const TOOLS = [
       "settingsDelAlert",
       "settingsDelService",
       "settingsDelTest",
-      "settingsDirty",
       "settingsGet",
       "settingsGetAlert",
       "settingsGetGeneral",
@@ -3498,7 +3396,6 @@ const TOOLS = [
           "type": "string",
           "description": "The method to call on this module",
           "enum": [
-            "serviceCheck",
             "serviceReconfigure",
             "serviceRestart",
             "serviceStart",
@@ -3510,7 +3407,6 @@ const TOOLS = [
             "settingsDelAlert",
             "settingsDelService",
             "settingsDelTest",
-            "settingsDirty",
             "settingsGet",
             "settingsGetAlert",
             "settingsGetGeneral",
@@ -3531,7 +3427,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -3609,15 +3505,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -3732,7 +3620,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -3810,15 +3698,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -3899,7 +3779,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -3977,15 +3857,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -4062,7 +3934,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -4140,15 +4012,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -4237,7 +4101,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -4315,15 +4179,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -4410,7 +4266,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -4488,15 +4344,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -4595,7 +4443,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -4673,15 +4521,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -4790,7 +4630,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -4868,15 +4708,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -4916,7 +4748,7 @@ const TOOLS = [
   },
   {
     "name": "unbound_manage",
-    "description": "Unbound management - 43 available methods including: diagnosticsDumpcache, diagnosticsDumpinfra, diagnosticsListinsecure, diagnosticsListlocaldata, diagnosticsListlocalzones...",
+    "description": "Unbound management - 45 available methods including: diagnosticsDumpcache, diagnosticsDumpinfra, diagnosticsListinsecure, diagnosticsListlocaldata, diagnosticsListlocalzones...",
     "module": "unbound",
     "methods": [
       "diagnosticsDumpcache",
@@ -4957,6 +4789,8 @@ const TOOLS = [
       "settingsSetForward",
       "settingsSetHostAlias",
       "settingsSetHostOverride",
+      "settingsDownloadHostOverrides",
+      "settingsUploadHostOverrides",
       "settingsToggleAcl",
       "settingsToggleForward",
       "settingsToggleHostAlias",
@@ -5008,6 +4842,8 @@ const TOOLS = [
             "settingsSetForward",
             "settingsSetHostAlias",
             "settingsSetHostOverride",
+            "settingsDownloadHostOverrides",
+            "settingsUploadHostOverrides",
             "settingsToggleAcl",
             "settingsToggleForward",
             "settingsToggleHostAlias",
@@ -5021,7 +4857,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -5099,15 +4935,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -5222,7 +5050,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -5300,15 +5128,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -5464,7 +5284,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -5542,15 +5362,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -5626,7 +5438,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -5704,15 +5516,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -5844,7 +5648,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -5922,15 +5726,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -6094,7 +5890,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -6172,15 +5968,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -6262,7 +6050,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -6340,15 +6128,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -6428,7 +6208,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -6506,15 +6286,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -6606,7 +6378,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -6684,15 +6456,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -6766,7 +6530,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -6844,15 +6608,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -6936,7 +6692,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -7014,15 +6770,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -7084,7 +6832,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -7162,15 +6910,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -7232,7 +6972,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -7310,15 +7050,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -7380,7 +7112,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -7458,15 +7190,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -7602,7 +7326,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -7680,15 +7404,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -7776,7 +7492,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -7854,15 +7570,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -8058,7 +7766,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -8136,15 +7844,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -8228,7 +7928,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -8306,15 +8006,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -8388,7 +8080,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -8466,15 +8158,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -8726,7 +8410,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -8804,15 +8488,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -8880,7 +8556,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -8958,15 +8634,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -9042,7 +8710,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -9120,15 +8788,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -9202,7 +8862,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -9280,15 +8940,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -9364,7 +9016,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -9442,15 +9094,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -9542,7 +9186,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -9620,15 +9264,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -9702,7 +9338,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -9780,15 +9416,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -9862,7 +9490,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -9940,15 +9568,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -10022,7 +9642,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -10100,15 +9720,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -10182,7 +9794,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -10260,15 +9872,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -10356,7 +9960,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -10434,15 +10038,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -10700,7 +10296,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -10778,15 +10374,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -10860,7 +10448,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -10938,15 +10526,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -11034,7 +10614,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -11112,15 +10692,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -11196,7 +10768,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -11274,15 +10846,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -11358,7 +10922,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -11436,15 +11000,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -11518,7 +11074,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -11596,15 +11152,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -11796,7 +11344,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -11874,15 +11422,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -12038,7 +11578,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -12116,15 +11656,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -12198,7 +11730,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -12276,15 +11808,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -12358,7 +11882,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -12436,15 +11960,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -12518,7 +12034,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -12596,15 +12112,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -12930,7 +12438,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -13008,15 +12516,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -13160,7 +12660,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -13238,15 +12738,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -13322,7 +12814,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -13400,15 +12892,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -13496,7 +12980,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -13574,15 +13058,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -13656,7 +13132,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -13734,15 +13210,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -13830,7 +13298,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -13908,15 +13376,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -14024,7 +13484,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -14102,15 +13562,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -14180,7 +13632,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -14258,15 +13710,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -14340,7 +13784,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -14418,15 +13862,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -14502,7 +13938,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -14580,15 +14016,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -14672,7 +14100,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -14750,15 +14178,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -14858,7 +14278,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -14936,15 +14356,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -15018,7 +14430,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -15096,15 +14508,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -15200,7 +14604,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -15278,15 +14682,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -15360,7 +14756,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -15438,15 +14834,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -15538,7 +14926,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -15616,15 +15004,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -15774,7 +15154,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -15852,15 +15232,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -15934,7 +15306,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -16012,15 +15384,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -16112,7 +15476,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -16190,15 +15554,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -16282,7 +15638,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -16360,15 +15716,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -16442,7 +15790,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -16520,15 +15868,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -16604,7 +15944,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -16682,15 +16022,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -16784,7 +16116,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -16862,15 +16194,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -16944,7 +16268,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -17022,15 +16346,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -17110,7 +16426,7 @@ const TOOLS = [
           "properties": {
             "uuid": {
               "type": "string",
-              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)"
+              "description": "Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}})."
             },
             "data": {
               "type": "object",
@@ -17188,15 +16504,7 @@ const TOOLS = [
             },
             "targetUuid": {
               "type": "string",
-              "description": "Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)"
-            },
-            "rollbackRevision": {
-              "type": "string",
-              "description": "Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)"
-            },
-            "revision": {
-              "type": "string",
-              "description": "Revision ID (for filterBaseRevert, dNatRevert)"
+              "description": "Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             },
             "alias": {
               "type": "string",
@@ -17264,6 +16572,7 @@ const METHOD_DOCS = {
       "hasyncStatusVersion",
       "menuSearch",
       "menuTree",
+      "menuSetFavorite",
       "serviceRestart",
       "serviceSearch",
       "serviceStart",
@@ -17486,8 +16795,17 @@ const METHOD_DOCS = {
       "vxlanSettingsReconfigure",
       "vxlanSettingsSet",
       "vxlanSettingsSetItem",
+      "wirelessSettingsAddItem",
+      "wirelessSettingsDelItem",
+      "wirelessSettingsGet",
+      "wirelessSettingsGetItem",
+      "wirelessSettingsReconfigure",
+      "wirelessSettingsSearchItem",
+      "wirelessSettingsSet",
+      "wirelessSettingsSetItem",
       "assignmentAddItem",
       "assignmentDelItem",
+      "assignmentPending",
       "assignmentGetItem",
       "assignmentReconfigure",
       "assignmentSearchItem",
@@ -17953,7 +17271,6 @@ const METHOD_DOCS = {
   "monit": {
     "toolName": "monit_manage",
     "methods": [
-      "serviceCheck",
       "serviceReconfigure",
       "serviceRestart",
       "serviceStart",
@@ -17965,7 +17282,6 @@ const METHOD_DOCS = {
       "settingsDelAlert",
       "settingsDelService",
       "settingsDelTest",
-      "settingsDirty",
       "settingsGet",
       "settingsGetAlert",
       "settingsGetGeneral",
@@ -18178,6 +17494,8 @@ const METHOD_DOCS = {
       "settingsSetForward",
       "settingsSetHostAlias",
       "settingsSetHostOverride",
+      "settingsDownloadHostOverrides",
+      "settingsUploadHostOverrides",
       "settingsToggleAcl",
       "settingsToggleForward",
       "settingsToggleHostAlias",
@@ -19989,6 +19307,8 @@ class OPNsenseMCPServer {
       'groupSettingsSet': 'groupSettingsGet',
       'dhcpv4SetOption': 'dhcpv4GetOption',
       'dhcpv6SetOption': 'dhcpv6GetOption',
+      // 26.7.x additions
+      'wirelessSettingsSetItem': 'wirelessSettingsGetItem',
     };
 
     const getMethodName = SET_GET_PAIRS[args.method];
@@ -20032,6 +19352,16 @@ class OPNsenseMCPServer {
 
         const currentData = current.data || current;
         const flattened = flattenDropdowns(currentData);
+        // OPNsense only reads the model root key (e.g. "rule", "wireless") from the POST
+        // body. If the caller sent flat fields, wrap them under that key instead of
+        // silently sending a no-op update.
+        const rootKeys = flattened && typeof flattened === 'object' ? Object.keys(flattened) : [];
+        const incoming = callParams.data;
+        if (rootKeys.length === 1 && incoming && typeof incoming === 'object' && !Array.isArray(incoming)
+            && !(rootKeys[0] in incoming)) {
+          console.error(`Safe merge: wrapping flat data under "${rootKeys[0]}"`);
+          callParams.data = { [rootKeys[0]]: incoming };
+        }
         callParams.data = deepMerge(flattened, callParams.data);
         console.error(`Safe merge: complete rule assembled with ${Object.keys(Object.values(callParams.data)[0] || {}).length} fields`);
       }
@@ -20042,10 +19372,10 @@ class OPNsenseMCPServer {
     const positionalMethods = {
       // Core - backup operations
       'backupBackups':       { required: ['host'],                     mapper: (p) => [p.host] },
-      'backupDeleteBackup':  { required: ['backup'],                   mapper: (p) => [p.backup] },
+      'backupDeleteBackup':  { required: ['backup'],                   mapper: (p) => [p.backup, p.data || {}] },
       'backupDiff':          { required: ['host', 'backup1', 'backup2'], mapper: (p) => [p.host, p.backup1, p.backup2] },
       'backupDownload':      { required: ['host'],                     mapper: (p) => [p.host, p.backup] },
-      'backupRevertBackup':  { required: ['backup'],                   mapper: (p) => [p.backup] },
+      'backupRevertBackup':  { required: ['backup'],                   mapper: (p) => [p.backup, p.data || {}] },
       // Core - HA sync operations
       'hasyncStatusRemoteService': { required: ['action', 'service', 'serviceId'], mapper: (p) => [p.action, p.service, p.serviceId] },
       'hasyncStatusRestart':    { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
@@ -20076,7 +19406,6 @@ class OPNsenseMCPServer {
       'filterToggleRule':     { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
       'filterToggleRuleLog':  { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
       'filterMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
-      'filterBaseApply':      { required: [], mapper: (p) => p.rollbackRevision ? [p.rollbackRevision, p.data || {}] : [] },
       // Firewall - aliases
       'aliasUpdate':      { required: ['action'], mapper: (p) => [p.action, p.data || {}] },
       'aliasGetItem':     { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
@@ -20124,6 +19453,10 @@ class OPNsenseMCPServer {
       'groupSettingsGet': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
       'groupSettingsSet': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       'groupSettingsDel': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Interfaces - wireless clones (26.7.x); delItem accepts comma-separated uuids
+      'wirelessSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'wirelessSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'wirelessSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       // CaptivePortal - templates (26.7)
       'templateGetTemplate': { required: [],       mapper: (p) => p.fileid ? [p.fileid] : [] },
       'templateDelTemplate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
