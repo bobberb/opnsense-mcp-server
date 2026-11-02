@@ -256,7 +256,7 @@ __metadata:
   resolution: "@richard-stovall/opnsense-mcp-server@workspace:."
   dependencies:
     "@modelcontextprotocol/sdk": "npm:^1.0.1"
-    "@richard-stovall/opnsense-typescript-client": "npm:0.5.3"
+    "@richard-stovall/opnsense-typescript-client": "patch:@richard-stovall/opnsense-typescript-client@npm%3A0.5.3#~/.yarn/patches/@richard-stovall-opnsense-typescript-client-npm-0.5.3-6a8498cbcb.patch"
     "@types/node": "npm:^20.11.0"
     tsx: "npm:^4.20.3"
     typescript: "npm:^5.3.3"
@@ -274,6 +274,17 @@ __metadata:
   peerDependencies:
     typescript: ^5
   checksum: 10c0/cb68776539722a0263206d54b831eb34737aeeb58c5aab382f837fb20e75206b744f7aeb80d2e8bbbd0a1aaf50144a905cc1649564a25c506862e61fa45e3784
+  languageName: node
+  linkType: hard
+
+"@richard-stovall/opnsense-typescript-client@patch:@richard-stovall/opnsense-typescript-client@npm%3A0.5.3#~/.yarn/patches/@richard-stovall-opnsense-typescript-client-npm-0.5.3-6a8498cbcb.patch":
+  version: 0.5.3
+  resolution: "@richard-stovall/opnsense-typescript-client@patch:@richard-stovall/opnsense-typescript-client@npm%3A0.5.3#~/.yarn/patches/@richard-stovall-opnsense-typescript-client-npm-0.5.3-6a8498cbcb.patch::version=0.5.3&hash=57fb10"
+  dependencies:
+    axios: "npm:^1.10.0"
+  peerDependencies:
+    typescript: ^5
+  checksum: 10c0/5173319d90e2b29007c94c4302bd06af9fb06b615075b20b7d017af579b0554de9fb25aebe852e6b28d74c4ff3d1a1fe0b671c9cb5737e401bfce2d0c140e7d3
   languageName: node
   linkType: hard
 

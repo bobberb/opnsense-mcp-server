@@ -1,0 +1,486 @@
+diff --git a/dist/index.js b/dist/index.js
+index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d6ebafb9f 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -730,82 +730,82 @@ class FirmwareApi {
+     }
+     // Firmware methods
+     async firmwareAudit(data, config) {
+-        return this.http.post(`/api/firmware/firmware/audit`, data, config);
++        return this.http.post(`/api/core/firmware/audit`, data, config);
+     }
+     async firmwareChangelog(version, data, config) {
+-        return this.http.post(`/api/firmware/firmware/changelog/${version}`, data, config);
++        return this.http.post(`/api/core/firmware/changelog/${version}`, data, config);
+     }
+     async firmwareCheck(data, config) {
+-        return this.http.post(`/api/firmware/firmware/check`, data, config);
++        return this.http.post(`/api/core/firmware/check`, data, config);
+     }
+     async firmwareConnection(data, config) {
+-        return this.http.post(`/api/firmware/firmware/connection`, data, config);
++        return this.http.post(`/api/core/firmware/connection`, data, config);
+     }
+     async firmwareGet(config) {
+-        return this.http.get(`/api/firmware/firmware/get`, config);
++        return this.http.get(`/api/core/firmware/get`, config);
+     }
+     async firmwareGetOptions(config) {
+-        return this.http.get(`/api/firmware/firmware/getOptions`, config);
++        return this.http.get(`/api/core/firmware/getOptions`, config);
+     }
+     async firmwareHealth(data, config) {
+-        return this.http.post(`/api/firmware/firmware/health`, data, config);
++        return this.http.post(`/api/core/firmware/health`, data, config);
+     }
+     async firmwareInfo(config) {
+-        return this.http.get(`/api/firmware/firmware/info`, config);
++        return this.http.get(`/api/core/firmware/info`, config);
+     }
+     async firmwareLog(clear, data, config) {
+-        return this.http.post(`/api/firmware/firmware/log/${clear}`, data, config);
++        return this.http.post(`/api/core/firmware/log/${clear}`, data, config);
+     }
+     async firmwarePoweroff(data, config) {
+-        return this.http.post(`/api/firmware/firmware/poweroff`, data, config);
++        return this.http.post(`/api/core/firmware/poweroff`, data, config);
+     }
+     async firmwareReboot(data, config) {
+-        return this.http.post(`/api/firmware/firmware/reboot`, data, config);
++        return this.http.post(`/api/core/firmware/reboot`, data, config);
+     }
+     async firmwareResyncPlugins(data, config) {
+-        return this.http.post(`/api/firmware/firmware/resyncPlugins`, data, config);
++        return this.http.post(`/api/core/firmware/resyncPlugins`, data, config);
+     }
+     async firmwareRunning(config) {
+-        return this.http.get(`/api/firmware/firmware/running`, config);
++        return this.http.get(`/api/core/firmware/running`, config);
+     }
+     async firmwareSet(data, config) {
+-        return this.http.post(`/api/firmware/firmware/set`, data, config);
++        return this.http.post(`/api/core/firmware/set`, data, config);
+     }
+     async firmwareStatus(data, config) {
+-        return this.http.post(`/api/firmware/firmware/status`, data, config);
++        return this.http.post(`/api/core/firmware/status`, data, config);
+     }
+     async firmwareSyncPlugins(data, config) {
+-        return this.http.post(`/api/firmware/firmware/syncPlugins`, data, config);
++        return this.http.post(`/api/core/firmware/syncPlugins`, data, config);
+     }
+     async firmwareUpdate(data, config) {
+-        return this.http.post(`/api/firmware/firmware/update`, data, config);
++        return this.http.post(`/api/core/firmware/update`, data, config);
+     }
+     async firmwareUpgrade(data, config) {
+-        return this.http.post(`/api/firmware/firmware/upgrade`, data, config);
++        return this.http.post(`/api/core/firmware/upgrade`, data, config);
+     }
+     async firmwareUpgradestatus(config) {
+-        return this.http.get(`/api/firmware/firmware/upgradestatus`, config);
++        return this.http.get(`/api/core/firmware/upgradestatus`, config);
+     }
+     async firmwareDetails(pkgName, data, config) {
+-        return this.http.post(`/api/firmware/firmware/details/${pkgName}`, data, config);
++        return this.http.post(`/api/core/firmware/details/${pkgName}`, data, config);
+     }
+     async firmwareInstall(pkgName, data, config) {
+-        return this.http.post(`/api/firmware/firmware/install/${pkgName}`, data, config);
++        return this.http.post(`/api/core/firmware/install/${pkgName}`, data, config);
+     }
+     async firmwareLicense(pkgName, data, config) {
+-        return this.http.post(`/api/firmware/firmware/license/${pkgName}`, data, config);
++        return this.http.post(`/api/core/firmware/license/${pkgName}`, data, config);
+     }
+     async firmwareLock(pkgName, data, config) {
+-        return this.http.post(`/api/firmware/firmware/lock/${pkgName}`, data, config);
++        return this.http.post(`/api/core/firmware/lock/${pkgName}`, data, config);
+     }
+     async firmwareRemove(pkgName, data, config) {
+-        return this.http.post(`/api/firmware/firmware/remove/${pkgName}`, data, config);
++        return this.http.post(`/api/core/firmware/remove/${pkgName}`, data, config);
+     }
+     async firmwareReinstall(pkgName, data, config) {
+-        return this.http.post(`/api/firmware/firmware/reinstall/${pkgName}`, data, config);
++        return this.http.post(`/api/core/firmware/reinstall/${pkgName}`, data, config);
+     }
+     async firmwareUnlock(pkgName, data, config) {
+-        return this.http.post(`/api/firmware/firmware/unlock/${pkgName}`, data, config);
++        return this.http.post(`/api/core/firmware/unlock/${pkgName}`, data, config);
+     }
+ }
+ 
+@@ -1264,10 +1264,99 @@ class KeaApi {
+     async dhcpv4UploadReservations(data, config) {
+         return this.http.post(`/api/kea/dhcpv4/upload_reservations`, data, config);
+     }
++    // Dhcpv4 search methods
++    async dhcpv4SearchPeer(config) {
++        return this.http.get(`/api/kea/dhcpv4/search_peer`, config);
++    }
++    async dhcpv4SearchReservation(config) {
++        return this.http.get(`/api/kea/dhcpv4/search_reservation`, config);
++    }
++    async dhcpv4SearchSubnet(config) {
++        return this.http.get(`/api/kea/dhcpv4/search_subnet`, config);
++    }
+     // Leases4 methods
+     async leases4Search(config) {
+         return this.http.get(`/api/kea/leases4/search`, config);
+     }
++    // Dhcpv6 methods
++    async dhcpv6AddPeer(data, config) {
++        return this.http.post(`/api/kea/dhcpv6/add_peer`, data, config);
++    }
++    async dhcpv6AddReservation(data, config) {
++        return this.http.post(`/api/kea/dhcpv6/add_reservation`, data, config);
++    }
++    async dhcpv6AddSubnet(data, config) {
++        return this.http.post(`/api/kea/dhcpv6/add_subnet`, data, config);
++    }
++    async dhcpv6DelPeer(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/del_peer/${uuid}`, data, config);
++    }
++    async dhcpv6DelReservation(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/del_reservation/${uuid}`, data, config);
++    }
++    async dhcpv6DelSubnet(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/del_subnet/${uuid}`, data, config);
++    }
++    async dhcpv6DownloadReservations(config) {
++        return this.http.get(`/api/kea/dhcpv6/download_reservations`, config);
++    }
++    async dhcpv6Get(config) {
++        return this.http.get(`/api/kea/dhcpv6/get`, config);
++    }
++    async dhcpv6GetPeer(uuid, config) {
++        return this.http.get(`/api/kea/dhcpv6/get_peer/${uuid}`, config);
++    }
++    async dhcpv6GetReservation(uuid, config) {
++        return this.http.get(`/api/kea/dhcpv6/get_reservation/${uuid}`, config);
++    }
++    async dhcpv6GetSubnet(uuid, config) {
++        return this.http.get(`/api/kea/dhcpv6/get_subnet/${uuid}`, config);
++    }
++    async dhcpv6Set(data, config) {
++        return this.http.post(`/api/kea/dhcpv6/set`, data, config);
++    }
++    async dhcpv6SetPeer(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/set_peer/${uuid}`, data, config);
++    }
++    async dhcpv6SetReservation(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/set_reservation/${uuid}`, data, config);
++    }
++    async dhcpv6SetSubnet(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/set_subnet/${uuid}`, data, config);
++    }
++    async dhcpv6UploadReservations(data, config) {
++        return this.http.post(`/api/kea/dhcpv6/upload_reservations`, data, config);
++    }
++    // Dhcpv6 PD Pool methods
++    async dhcpv6AddPdPool(data, config) {
++        return this.http.post(`/api/kea/dhcpv6/add_pd_pool`, data, config);
++    }
++    async dhcpv6DelPdPool(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/del_pd_pool/${uuid}`, data, config);
++    }
++    async dhcpv6GetPdPool(uuid, config) {
++        return this.http.get(`/api/kea/dhcpv6/get_pd_pool/${uuid}`, config);
++    }
++    async dhcpv6SetPdPool(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/set_pd_pool/${uuid}`, data, config);
++    }
++    async dhcpv6SearchPdPool(config) {
++        return this.http.get(`/api/kea/dhcpv6/search_pd_pool`, config);
++    }
++    // Dhcpv6 search methods
++    async dhcpv6SearchPeer(config) {
++        return this.http.get(`/api/kea/dhcpv6/search_peer`, config);
++    }
++    async dhcpv6SearchReservation(config) {
++        return this.http.get(`/api/kea/dhcpv6/search_reservation`, config);
++    }
++    async dhcpv6SearchSubnet(config) {
++        return this.http.get(`/api/kea/dhcpv6/search_subnet`, config);
++    }
++    // Leases6 methods
++    async leases6Search(config) {
++        return this.http.get(`/api/kea/leases6/search`, config);
++    }
+     // Service methods
+     async serviceReconfigure(data, config) {
+         return this.http.post(`/api/kea/service/reconfigure`, data, config);
+@@ -1794,14 +1883,14 @@ class UnboundApi {
+         return this.http.get(`/api/unbound/overview/totals/${maximum}`, config);
+     }
+     // Service methods
+-    async serviceDnsbl(config) {
+-        return this.http.get(`/api/unbound/service/dnsbl`, config);
++    async serviceDnsbl(data, config) {
++        return this.http.post(`/api/unbound/service/dnsbl`, data, config);
+     }
+     async serviceReconfigure(data, config) {
+         return this.http.post(`/api/unbound/service/reconfigure`, data, config);
+     }
+-    async serviceReconfigureGeneral(config) {
+-        return this.http.get(`/api/unbound/service/reconfigure_general`, config);
++    async serviceReconfigureGeneral(data, config) {
++        return this.http.post(`/api/unbound/service/reconfigure_general`, data, config);
+     }
+     async serviceRestart(data, config) {
+         return this.http.post(`/api/unbound/service/restart`, data, config);
+@@ -1987,6 +2076,48 @@ class WireguardApi {
+     }
+ }
+ 
++class RadvdApi {
++    http;
++    constructor(http) {
++        this.http = http;
++    }
++    // Service methods
++    async serviceReconfigure(data, config) {
++        return this.http.post(`/api/radvd/service/reconfigure`, data, config);
++    }
++    async serviceRestart(data, config) {
++        return this.http.post(`/api/radvd/service/restart`, data, config);
++    }
++    async serviceStart(data, config) {
++        return this.http.post(`/api/radvd/service/start`, data, config);
++    }
++    async serviceStatus(config) {
++        return this.http.get(`/api/radvd/service/status`, config);
++    }
++    async serviceStop(data, config) {
++        return this.http.post(`/api/radvd/service/stop`, data, config);
++    }
++    // Settings methods
++    async settingsAddEntry(data, config) {
++        return this.http.post(`/api/radvd/settings/addEntry`, data, config);
++    }
++    async settingsDelEntry(uuid, data, config) {
++        return this.http.post(`/api/radvd/settings/delEntry/${uuid}`, data, config);
++    }
++    async settingsGetEntry(uuid, config) {
++        return this.http.get(`/api/radvd/settings/getEntry/${uuid || ''}`, config);
++    }
++    async settingsSearchEntry(config) {
++        return this.http.get(`/api/radvd/settings/searchEntry`, config);
++    }
++    async settingsSetEntry(uuid, data, config) {
++        return this.http.post(`/api/radvd/settings/setEntry/${uuid}`, data, config);
++    }
++    async settingsToggleEntry(uuid, enabled, data, config) {
++        return this.http.post(`/api/radvd/settings/toggleEntry/${uuid}/${enabled}`, data, config);
++    }
++}
++
+ // Container types
+ class CoreApi {
+     http;
+@@ -2286,8 +2417,8 @@ class FirewallApi {
+     async aliasUtilList(alias, config) {
+         return this.http.get(`/api/firewall/alias_util/list/${alias}`, config);
+     }
+-    async aliasUtilUpdateBogons(config) {
+-        return this.http.get(`/api/firewall/alias_util/update_bogons`, config);
++    async aliasUtilUpdateBogons(data, config) {
++        return this.http.post(`/api/firewall/alias_util/update_bogons`, data, config);
+     }
+     // Category methods
+     async categoryAddItem(data, config) {
+@@ -2310,28 +2441,28 @@ class FirewallApi {
+     }
+     // FilterBase methods
+     async filterBaseApply(rollbackRevision, data, config) {
+-        return this.http.post(`/api/firewall/filter_base/apply/${rollbackRevision}`, data, config);
++        return this.http.post(`/api/firewall/filter/apply/${rollbackRevision}`, data, config);
+     }
+     async filterBaseCancelRollback(rollbackRevision, data, config) {
+-        return this.http.post(`/api/firewall/filter_base/cancel_rollback/${rollbackRevision}`, data, config);
++        return this.http.post(`/api/firewall/filter/cancel_rollback/${rollbackRevision}`, data, config);
+     }
+     async filterBaseGet(config) {
+-        return this.http.get(`/api/firewall/filter_base/get`, config);
++        return this.http.get(`/api/firewall/filter/get`, config);
+     }
+     async filterBaseListCategories(config) {
+-        return this.http.get(`/api/firewall/filter_base/list_categories`, config);
++        return this.http.get(`/api/firewall/filter/list_categories`, config);
+     }
+     async filterBaseListNetworkSelectOptions(config) {
+-        return this.http.get(`/api/firewall/filter_base/list_network_select_options`, config);
++        return this.http.get(`/api/firewall/filter/list_network_select_options`, config);
+     }
+     async filterBaseRevert(revision, data, config) {
+-        return this.http.post(`/api/firewall/filter_base/revert/${revision}`, data, config);
++        return this.http.post(`/api/firewall/filter/revert/${revision}`, data, config);
+     }
+     async filterBaseSavepoint(data, config) {
+-        return this.http.post(`/api/firewall/filter_base/savepoint`, data, config);
++        return this.http.post(`/api/firewall/filter/savepoint`, data, config);
+     }
+     async filterBaseSet(data, config) {
+-        return this.http.post(`/api/firewall/filter_base/set`, data, config);
++        return this.http.post(`/api/firewall/filter/set`, data, config);
+     }
+     // Filter methods
+     async filterAddRule(data, config) {
+@@ -2355,6 +2486,25 @@ class FirewallApi {
+     async filterToggleRule(uuid, enabled, data, config) {
+         return this.http.post(`/api/firewall/filter/toggle_rule/${uuid}/${enabled}`, data, config);
+     }
++    // New filter methods (26.1)
++    async filterSearchRule(config) {
++        return this.http.get(`/api/firewall/filter/search_rule`, config);
++    }
++    async filterDownloadRules(config) {
++        return this.http.get(`/api/firewall/filter/download_rules`, config);
++    }
++    async filterUploadRules(data, config) {
++        return this.http.post(`/api/firewall/filter/upload_rules`, data, config);
++    }
++    async filterFlushInspectCache(data, config) {
++        return this.http.post(`/api/firewall/filter/flush_inspect_cache`, data, config);
++    }
++    async filterToggleRuleLog(uuid, log, config) {
++        return this.http.get(`/api/firewall/filter/toggle_rule_log/${uuid}/${log}`, config);
++    }
++    async filterBaseListPortSelectOptions(config) {
++        return this.http.get(`/api/firewall/filter/list_port_select_options`, config);
++    }
+     // FilterUtil methods
+     async filterUtilRuleStats(config) {
+         return this.http.get(`/api/firewall/filter_util/rule_stats`, config);
+@@ -2413,6 +2563,12 @@ class FirewallApi {
+     async oneToOneToggleRule(uuid, enabled, data, config) {
+         return this.http.post(`/api/firewall/one_to_one/toggle_rule/${uuid}/${enabled}`, data, config);
+     }
++    async oneToOneDownloadRules(config) {
++        return this.http.get(`/api/firewall/one_to_one/download_rules`, config);
++    }
++    async oneToOneUploadRules(data, config) {
++        return this.http.post(`/api/firewall/one_to_one/upload_rules`, data, config);
++    }
+     // SourceNat methods
+     async sourceNatAddRule(data, config) {
+         return this.http.post(`/api/firewall/source_nat/add_rule`, data, config);
+@@ -2429,6 +2585,70 @@ class FirewallApi {
+     async sourceNatToggleRule(uuid, enabled, data, config) {
+         return this.http.post(`/api/firewall/source_nat/toggle_rule/${uuid}/${enabled}`, data, config);
+     }
++    async sourceNatDownloadRules(config) {
++        return this.http.get(`/api/firewall/source_nat/download_rules`, config);
++    }
++    async sourceNatUploadRules(data, config) {
++        return this.http.post(`/api/firewall/source_nat/upload_rules`, data, config);
++    }
++    // DNat (Destination NAT) methods
++    async dNatAddRule(data, config) {
++        return this.http.post(`/api/firewall/d_nat/add_rule`, data, config);
++    }
++    async dNatDelRule(uuid, data, config) {
++        return this.http.post(`/api/firewall/d_nat/del_rule/${uuid}`, data, config);
++    }
++    async dNatGetRule(uuid, config) {
++        return this.http.get(`/api/firewall/d_nat/get_rule/${uuid}`, config);
++    }
++    async dNatMoveRuleBefore(selectedUuid, targetUuid, config) {
++        return this.http.get(`/api/firewall/d_nat/move_rule_before/${selectedUuid}/${targetUuid}`, config);
++    }
++    async dNatSearchRule(config) {
++        return this.http.get(`/api/firewall/d_nat/search_rule`, config);
++    }
++    async dNatSetRule(uuid, data, config) {
++        return this.http.post(`/api/firewall/d_nat/set_rule/${uuid}`, data, config);
++    }
++    async dNatToggleRule(uuid, disabled, data, config) {
++        return this.http.post(`/api/firewall/d_nat/toggle_rule/${uuid}/${disabled}`, data, config);
++    }
++    async dNatToggleRuleLog(uuid, log, config) {
++        return this.http.get(`/api/firewall/d_nat/toggle_rule_log/${uuid}/${log}`, config);
++    }
++    async dNatApply(rollbackRevision, data, config) {
++        return this.http.post(`/api/firewall/d_nat/apply/${rollbackRevision || ''}`, data, config);
++    }
++    async dNatCancelRollback(rollbackRevision, data, config) {
++        return this.http.post(`/api/firewall/d_nat/cancel_rollback/${rollbackRevision}`, data, config);
++    }
++    async dNatGet(config) {
++        return this.http.get(`/api/firewall/d_nat/get`, config);
++    }
++    async dNatListCategories(config) {
++        return this.http.get(`/api/firewall/d_nat/list_categories`, config);
++    }
++    async dNatListNetworkSelectOptions(config) {
++        return this.http.get(`/api/firewall/d_nat/list_network_select_options`, config);
++    }
++    async dNatListPortSelectOptions(config) {
++        return this.http.get(`/api/firewall/d_nat/list_port_select_options`, config);
++    }
++    async dNatRevert(revision, data, config) {
++        return this.http.post(`/api/firewall/d_nat/revert/${revision}`, data, config);
++    }
++    async dNatSavepoint(data, config) {
++        return this.http.post(`/api/firewall/d_nat/savepoint`, data, config);
++    }
++    async dNatSet(data, config) {
++        return this.http.post(`/api/firewall/d_nat/set`, data, config);
++    }
++    async dNatDownloadRules(config) {
++        return this.http.get(`/api/firewall/d_nat/download_rules`, config);
++    }
++    async dNatUploadRules(data, config) {
++        return this.http.post(`/api/firewall/d_nat/upload_rules`, data, config);
++    }
+ }
+ 
+ class InterfacesApi {
+@@ -2563,8 +2783,8 @@ class InterfacesApi {
+     async overviewInterfacesInfo(details, config) {
+         return this.http.get(`/api/interfaces/overview/interfaces_info/${details}`, config);
+     }
+-    async overviewReloadInterface(identifier, config) {
+-        return this.http.get(`/api/interfaces/overview/reload_interface/${identifier}`, config);
++    async overviewReloadInterface(identifier, data, config) {
++        return this.http.post(`/api/interfaces/overview/reload_interface/${identifier}`, data, config);
+     }
+     // VipSettings methods
+     async vipSettingsAddItem(data, config) {
+@@ -2932,7 +3152,7 @@ class BindApi {
+         return this.http.post(`/api/bind/record/toggle_record/${uuid}`, data, config);
+     }
+     // Service methods
+-    async serviceDnsbl(config) {
++    async serviceDnsbl(data, config) {
+         return this.http.get(`/api/bind/service/dnsbl`, config);
+     }
+     async serviceReconfigure(data, config) {
+@@ -3473,7 +3693,7 @@ class DnscryptproxyApi {
+         return this.http.post(`/api/dnscryptproxy/server/toggle_server/${uuid}`, data, config);
+     }
+     // Service methods
+-    async serviceDnsbl(config) {
++    async serviceDnsbl(data, config) {
+         return this.http.get(`/api/dnscryptproxy/service/dnsbl`, config);
+     }
+     async serviceReconfigure(data, config) {
+@@ -6507,6 +6727,9 @@ class TailscaleApi {
+     async settingsSetSubnet(uuid, data, config) {
+         return this.http.post(`/api/tailscale/settings/set_subnet/${uuid}`, data, config);
+     }
++    async settingsSearchSubnet(config) {
++        return this.http.get(`/api/tailscale/settings/searchSubnet`, config);
++    }
+     // Status methods
+     async statusGet(config) {
+         return this.http.get(`/api/tailscale/status/get`, config);
+@@ -7259,6 +7482,7 @@ class OPNsenseClient {
+         this.kea = new KeaApi(this.http);
+         this.monit = new MonitApi(this.http);
+         this.openvpn = new OpenvpnApi(this.http);
++        this.radvd = new RadvdApi(this.http);
+         this.routes = new RoutesApi(this.http);
+         this.routing = new RoutingApi(this.http);
+         this.syslog = new SyslogApi(this.http);
