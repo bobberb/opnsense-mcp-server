@@ -35,10 +35,12 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 bun.lock
 CLAUDE.md
 .cursor
-.yarn
+.yarn/*
+!.yarn/patches
 claude
 testing
 prompt.md
 .mcp.json
 *apikey*
 start-mcp.sh
+.node
