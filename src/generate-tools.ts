@@ -47,7 +47,7 @@ function generateModularSchema(methods: string[]): any {
           // Common parameters that many methods use
           uuid: {
             type: 'string',
-            description: 'Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.)'
+            description: 'Item UUID (for get/set/del/activate operations on snapshots, tunables, etc.). For *MoveRuleBefore, *ToggleRuleLog and wirelessSettingsDelItem, a comma-separated list of UUIDs is accepted. For *Set*/SetItem/SetRule with uuid+data, the current item is fetched and merged first, so data may hold only the changed fields (flat, or wrapped in the model root key such as {rule:{...}}).'
           },
           data: {
             type: 'object',
@@ -130,15 +130,7 @@ function generateModularSchema(methods: string[]): any {
           // Firewall-specific parameters
           targetUuid: {
             type: 'string',
-            description: 'Target rule UUID (for filterMoveRuleBefore, dNatMoveRuleBefore)'
-          },
-          rollbackRevision: {
-            type: 'string',
-            description: 'Rollback revision ID (for filterBaseApply, filterBaseCancelRollback)'
-          },
-          revision: {
-            type: 'string',
-            description: 'Revision ID (for filterBaseRevert, dNatRevert)'
+            description: 'Target rule UUID: the selected rule(s) in uuid are moved directly before it (for filterMoveRuleBefore, dNatMoveRuleBefore)'
           },
           alias: {
             type: 'string',

@@ -1,11 +1,11 @@
 # OPNsense MCP Server
 
-A modular Model Context Protocol (MCP) server that provides **88 module-based tools** giving access to over 2000 OPNsense firewall management methods through a type-safe TypeScript interface.
+A modular Model Context Protocol (MCP) server that provides **89 module-based tools** giving access to over 2000 OPNsense firewall management methods through a type-safe TypeScript interface.
 
 ## Features
 
-- **Modular Architecture** - 88 logical tools (one per module) instead of 2000+ individual tools
-- **Complete API Coverage** - Access to 752 core methods and 1271 plugin methods
+- **Modular Architecture** - 89 logical tools (one per module) instead of 2000+ individual tools
+- **Complete API Coverage** - Access to 865 core methods and 1272 plugin methods (bindings track OPNsense 26.7.8)
 - **Type-Safe** - Full TypeScript support with [@richard-stovall/opnsense-typescript-client](https://www.npmjs.com/package/@richard-stovall/opnsense-typescript-client) v0.5.3
 - **Plugin Support** - Optional support for 64 plugin modules
 - **Smart Organization** - Related operations grouped by module for easier discovery
@@ -163,7 +163,7 @@ The server accepts configuration through environment variables:
 
 ## How It Works
 
-The modular MCP server provides your AI assistant with 88 module-based tools. Each tool represents an OPNsense module and accepts a `method` parameter to specify the operation.
+The modular MCP server provides your AI assistant with 89 module-based tools. Each tool represents an OPNsense module and accepts a `method` parameter to specify the operation.
 
 **Tool Usage Pattern:**
 
@@ -262,7 +262,7 @@ yarn start          # Start the server
 - **MCP SDK**: @modelcontextprotocol/sdk
 - **API Client**: @richard-stovall/opnsense-typescript-client
 - **Validation**: Zod for schema validation
-- **Testing**: Jest with TypeScript support
+- **Testing**: `yarn test` runs end-to-end binding tests (`tests/`, node:test): the built server is driven over MCP stdio against a fake OPNsense HTTP server, asserting the exact verb, path and body of each call
 
 ## API Integration
 

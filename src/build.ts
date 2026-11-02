@@ -203,6 +203,8 @@ class OPNsenseMCPServer {
       'groupSettingsSet': 'groupSettingsGet',
       'dhcpv4SetOption': 'dhcpv4GetOption',
       'dhcpv6SetOption': 'dhcpv6GetOption',
+      // 26.7.x additions
+      'wirelessSettingsSetItem': 'wirelessSettingsGetItem',
     };
 
     const getMethodName = SET_GET_PAIRS[args.method];
@@ -246,6 +248,16 @@ class OPNsenseMCPServer {
 
         const currentData = current.data || current;
         const flattened = flattenDropdowns(currentData);
+        // OPNsense only reads the model root key (e.g. "rule", "wireless") from the POST
+        // body. If the caller sent flat fields, wrap them under that key instead of
+        // silently sending a no-op update.
+        const rootKeys = flattened && typeof flattened === 'object' ? Object.keys(flattened) : [];
+        const incoming = callParams.data;
+        if (rootKeys.length === 1 && incoming && typeof incoming === 'object' && !Array.isArray(incoming)
+            && !(rootKeys[0] in incoming)) {
+          console.error(\`Safe merge: wrapping flat data under "\${rootKeys[0]}"\`);
+          callParams.data = { [rootKeys[0]]: incoming };
+        }
         callParams.data = deepMerge(flattened, callParams.data);
         console.error(\`Safe merge: complete rule assembled with \${Object.keys(Object.values(callParams.data)[0] || {}).length} fields\`);
       }
@@ -256,10 +268,10 @@ class OPNsenseMCPServer {
     const positionalMethods = {
       // Core - backup operations
       'backupBackups':       { required: ['host'],                     mapper: (p) => [p.host] },
-      'backupDeleteBackup':  { required: ['backup'],                   mapper: (p) => [p.backup] },
+      'backupDeleteBackup':  { required: ['backup'],                   mapper: (p) => [p.backup, p.data || {}] },
       'backupDiff':          { required: ['host', 'backup1', 'backup2'], mapper: (p) => [p.host, p.backup1, p.backup2] },
       'backupDownload':      { required: ['host'],                     mapper: (p) => [p.host, p.backup] },
-      'backupRevertBackup':  { required: ['backup'],                   mapper: (p) => [p.backup] },
+      'backupRevertBackup':  { required: ['backup'],                   mapper: (p) => [p.backup, p.data || {}] },
       // Core - HA sync operations
       'hasyncStatusRemoteService': { required: ['action', 'service', 'serviceId'], mapper: (p) => [p.action, p.service, p.serviceId] },
       'hasyncStatusRestart':    { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
@@ -290,7 +302,6 @@ class OPNsenseMCPServer {
       'filterToggleRule':     { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
       'filterToggleRuleLog':  { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
       'filterMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
-      'filterBaseApply':      { required: [], mapper: (p) => p.rollbackRevision ? [p.rollbackRevision, p.data || {}] : [] },
       // Firewall - aliases
       'aliasUpdate':      { required: ['action'], mapper: (p) => [p.action, p.data || {}] },
       'aliasGetItem':     { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
@@ -338,6 +349,10 @@ class OPNsenseMCPServer {
       'groupSettingsGet': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
       'groupSettingsSet': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       'groupSettingsDel': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Interfaces - wireless clones (26.7.x); delItem accepts comma-separated uuids
+      'wirelessSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'wirelessSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'wirelessSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       // CaptivePortal - templates (26.7)
       'templateGetTemplate': { required: [],       mapper: (p) => p.fileid ? [p.fileid] : [] },
       'templateDelTemplate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
