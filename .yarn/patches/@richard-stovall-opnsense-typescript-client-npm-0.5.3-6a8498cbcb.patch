@@ -1,8 +1,63 @@
 diff --git a/dist/index.js b/dist/index.js
-index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d6ebafb9f 100644
+index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..db9285a3a996bf032fa2ca5d41625346a1c9b49e 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -730,82 +730,82 @@ class FirmwareApi {
+@@ -89,20 +89,21 @@ class CaptiveportalApi {
+         return this.http.post(`/api/captiveportal/access/logon/${zoneid}`, data, config);
+     }
+     // Service methods
+-    async serviceDelTemplate(uuid, data, config) {
+-        return this.http.post(`/api/captiveportal/service/del_template/${uuid}`, data, config);
+-    }
+-    async serviceGetTemplate(fileid, config) {
+-        return this.http.get(`/api/captiveportal/service/get_template/${fileid}`, config);
+-    }
+     async serviceReconfigure(data, config) {
+         return this.http.post(`/api/captiveportal/service/reconfigure`, data, config);
+     }
+-    async serviceSaveTemplate(data, config) {
+-        return this.http.post(`/api/captiveportal/service/save_template`, data, config);
++    // Template methods (26.7: moved from ServiceController into TemplateController)
++    async templateDelTemplate(uuid, data, config) {
++        return this.http.post(`/api/captiveportal/template/del_template/${uuid}`, data, config);
++    }
++    async templateGetTemplate(fileid, config) {
++        return this.http.get(`/api/captiveportal/template/get_template/${fileid}`, config);
+     }
+-    async serviceSearchTemplates(config) {
+-        return this.http.get(`/api/captiveportal/service/search_templates`, config);
++    async templateSaveTemplate(data, config) {
++        return this.http.post(`/api/captiveportal/template/save_template`, data, config);
++    }
++    async templateSearchTemplates(config) {
++        return this.http.get(`/api/captiveportal/template/search_templates`, config);
+     }
+     // Session methods
+     async sessionConnect(zoneid, data, config) {
+@@ -473,6 +474,9 @@ let DiagnosticsApi$1 = class DiagnosticsApi {
+     async netflowStatus(config) {
+         return this.http.get(`/api/diagnostics/netflow/status`, config);
+     }
++    async netflowReset(data, config) {
++        return this.http.post(`/api/diagnostics/netflow/reset`, data, config);
++    }
+     // Networkinsight methods
+     async networkinsightExport(provider, fromDate, toDate, resolution, config) {
+         return this.http.get(`/api/diagnostics/networkinsight/export/${provider}/${fromDate}/${toDate}/${resolution}`, config);
+@@ -587,6 +591,12 @@ let DiagnosticsApi$1 = class DiagnosticsApi {
+     async systemhealthGetSystemHealth(rrd, unused, detail, config) {
+         return this.http.get(`/api/diagnostics/systemhealth/get_system_health/${rrd}/${unused}/${detail}`, config);
+     }
++    async systemhealthDelRRD(report, data, config) {
++        return this.http.post(`/api/diagnostics/systemhealth/del_r_r_d/${report}`, data, config);
++    }
++    async systemhealthReconfigure(data, config) {
++        return this.http.post(`/api/diagnostics/systemhealth/reconfigure`, data, config);
++    }
+     // Traceroute methods
+     async tracerouteGet(config) {
+         return this.http.get(`/api/diagnostics/traceroute/get`, config);
+@@ -730,82 +740,82 @@ class FirmwareApi {
      }
      // Firmware methods
      async firmwareAudit(data, config) {
@@ -111,7 +166,18 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
      }
  }
  
-@@ -1264,10 +1264,99 @@ class KeaApi {
+@@ -1215,6 +1225,10 @@ class KeaApi {
+     async ctrlAgentSet(data, config) {
+         return this.http.post(`/api/kea/ctrl_agent/set`, data, config);
+     }
++    // Ddns methods (26.7)
++    async ddnsGet(config) {
++        return this.http.get(`/api/kea/ddns/get`, config);
++    }
+     // Dhcpv4 methods
+     async dhcpv4AddPeer(data, config) {
+         return this.http.post(`/api/kea/dhcpv4/add_peer`, data, config);
+@@ -1264,10 +1278,137 @@ class KeaApi {
      async dhcpv4UploadReservations(data, config) {
          return this.http.post(`/api/kea/dhcpv4/upload_reservations`, data, config);
      }
@@ -125,10 +191,29 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
 +    async dhcpv4SearchSubnet(config) {
 +        return this.http.get(`/api/kea/dhcpv4/search_subnet`, config);
 +    }
++    // Dhcpv4 option methods (26.7)
++    async dhcpv4AddOption(data, config) {
++        return this.http.post(`/api/kea/dhcpv4/add_option`, data, config);
++    }
++    async dhcpv4DelOption(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv4/del_option/${uuid}`, data, config);
++    }
++    async dhcpv4GetOption(uuid, config) {
++        return this.http.get(`/api/kea/dhcpv4/get_option/${uuid}`, config);
++    }
++    async dhcpv4SetOption(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv4/set_option/${uuid}`, data, config);
++    }
++    async dhcpv4SearchOption(config) {
++        return this.http.get(`/api/kea/dhcpv4/search_option`, config);
++    }
      // Leases4 methods
      async leases4Search(config) {
          return this.http.get(`/api/kea/leases4/search`, config);
      }
++    async leases4DelLease(ips, data, config) {
++        return this.http.post(`/api/kea/leases4/del_lease/${ips}`, data, config);
++    }
 +    // Dhcpv6 methods
 +    async dhcpv6AddPeer(data, config) {
 +        return this.http.post(`/api/kea/dhcpv6/add_peer`, data, config);
@@ -204,16 +289,87 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
 +    async dhcpv6SearchSubnet(config) {
 +        return this.http.get(`/api/kea/dhcpv6/search_subnet`, config);
 +    }
++    // Dhcpv6 option methods (26.7)
++    async dhcpv6AddOption(data, config) {
++        return this.http.post(`/api/kea/dhcpv6/add_option`, data, config);
++    }
++    async dhcpv6DelOption(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/del_option/${uuid}`, data, config);
++    }
++    async dhcpv6GetOption(uuid, config) {
++        return this.http.get(`/api/kea/dhcpv6/get_option/${uuid}`, config);
++    }
++    async dhcpv6SetOption(uuid, data, config) {
++        return this.http.post(`/api/kea/dhcpv6/set_option/${uuid}`, data, config);
++    }
++    async dhcpv6SearchOption(config) {
++        return this.http.get(`/api/kea/dhcpv6/search_option`, config);
++    }
 +    // Leases6 methods
 +    async leases6Search(config) {
 +        return this.http.get(`/api/kea/leases6/search`, config);
 +    }
++    async leases6DelLease(ips, data, config) {
++        return this.http.post(`/api/kea/leases6/del_lease/${ips}`, data, config);
++    }
      // Service methods
      async serviceReconfigure(data, config) {
          return this.http.post(`/api/kea/service/reconfigure`, data, config);
-@@ -1794,14 +1883,14 @@ class UnboundApi {
+@@ -1292,10 +1433,7 @@ class MonitApi {
+         this.http = http;
+         // HTTP client will handle full URLs with base path
+     }
+-    // Service methods
+-    async serviceCheck(data, config) {
+-        return this.http.post(`/api/monit/service/check`, data, config);
+-    }
++    // Service methods (26.7.x: service/check endpoint removed)
+     async serviceReconfigure(data, config) {
+         return this.http.post(`/api/monit/service/reconfigure`, data, config);
+     }
+@@ -1330,9 +1468,6 @@ class MonitApi {
+     async settingsDelTest(uuid, data, config) {
+         return this.http.post(`/api/monit/settings/del_test/${uuid}`, data, config);
+     }
+-    async settingsDirty(config) {
+-        return this.http.get(`/api/monit/settings/dirty`, config);
+-    }
+     async settingsGet(config) {
+         return this.http.get(`/api/monit/settings/get`, config);
+     }
+@@ -1540,6 +1675,25 @@ class RoutingApi {
+     async settingsToggleGateway(uuid, enabled, data, config) {
+         return this.http.post(`/api/routing/settings/toggle_gateway/${uuid}/${enabled}`, data, config);
+     }
++    // GroupSettings methods (26.7: gateway groups migrated to MVC/API)
++    async groupSettingsAdd(data, config) {
++        return this.http.post(`/api/routing/group_settings/add`, data, config);
++    }
++    async groupSettingsDel(uuid, data, config) {
++        return this.http.post(`/api/routing/group_settings/del/${uuid}`, data, config);
++    }
++    async groupSettingsGet(uuid, config) {
++        return this.http.get(`/api/routing/group_settings/get/${uuid}`, config);
++    }
++    async groupSettingsReconfigure(data, config) {
++        return this.http.post(`/api/routing/group_settings/reconfigure`, data, config);
++    }
++    async groupSettingsSearch(config) {
++        return this.http.get(`/api/routing/group_settings/search`, config);
++    }
++    async groupSettingsSet(uuid, data, config) {
++        return this.http.post(`/api/routing/group_settings/set/${uuid}`, data, config);
++    }
+ }
+ 
+ class SyslogApi {
+@@ -1793,15 +1947,18 @@ class UnboundApi {
+     async overviewTotals(maximum, config) {
          return this.http.get(`/api/unbound/overview/totals/${maximum}`, config);
      }
++    async overviewReset(data, config) {
++        return this.http.post(`/api/unbound/overview/reset`, data, config);
++    }
      // Service methods
 -    async serviceDnsbl(config) {
 -        return this.http.get(`/api/unbound/service/dnsbl`, config);
@@ -230,7 +386,21 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
      }
      async serviceRestart(data, config) {
          return this.http.post(`/api/unbound/service/restart`, data, config);
-@@ -1987,6 +2076,48 @@ class WireguardApi {
+@@ -1873,6 +2030,13 @@ class UnboundApi {
+     async settingsSetHostOverride(uuid, data, config) {
+         return this.http.post(`/api/unbound/settings/set_host_override/${uuid}`, data, config);
+     }
++    // 26.7.x: host overrides CSV export/import (upload body { payload })
++    async settingsDownloadHostOverrides(config) {
++        return this.http.get(`/api/unbound/settings/download_host_overrides`, config);
++    }
++    async settingsUploadHostOverrides(data, config) {
++        return this.http.post(`/api/unbound/settings/upload_host_overrides`, data, config);
++    }
+     async settingsToggleAcl(uuid, enabled, data, config) {
+         return this.http.post(`/api/unbound/settings/toggle_acl/${uuid}/${enabled}`, data, config);
+     }
+@@ -1987,6 +2151,48 @@ class WireguardApi {
      }
  }
  
@@ -279,27 +449,81 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
  // Container types
  class CoreApi {
      http;
-@@ -2286,8 +2417,8 @@ class FirewallApi {
+@@ -1998,8 +2204,8 @@ class CoreApi {
+     async backupBackups(host, config) {
+         return this.http.get(`/api/core/backup/backups/${host}`, config);
+     }
+-    async backupDeleteBackup(backup, config) {
+-        return this.http.get(`/api/core/backup/delete_backup/${backup}`, config);
++    async backupDeleteBackup(backup, data, config) {
++        return this.http.post(`/api/core/backup/delete_backup/${backup}`, data, config);
+     }
+     async backupDiff(host, backup1, backup2, config) {
+         return this.http.get(`/api/core/backup/diff/${host}/${backup1}/${backup2}`, config);
+@@ -2010,13 +2216,16 @@ class CoreApi {
+     async backupProviders(config) {
+         return this.http.get(`/api/core/backup/providers`, config);
+     }
+-    async backupRevertBackup(backup, config) {
+-        return this.http.get(`/api/core/backup/revert_backup/${backup}`, config);
++    async backupRevertBackup(backup, data, config) {
++        return this.http.post(`/api/core/backup/revert_backup/${backup}`, data, config);
+     }
+     // Dashboard methods
+     async dashboardGetDashboard(config) {
+         return this.http.get(`/api/core/dashboard/get_dashboard`, config);
+     }
++    async dashboardGetDefaults(config) {
++        return this.http.get(`/api/core/dashboard/get_defaults`, config);
++    }
+     async dashboardPicture(config) {
+         return this.http.get(`/api/core/dashboard/picture`, config);
+     }
+@@ -2068,6 +2277,10 @@ class CoreApi {
+     async menuTree(config) {
+         return this.http.get(`/api/core/menu/tree`, config);
+     }
++    // 26.7.x: body { menuUrl, isFavorite }
++    async menuSetFavorite(data, config) {
++        return this.http.post(`/api/core/menu/set_favorite`, data, config);
++    }
+     // Service methods
+     async serviceRestart(name, id, data, config) {
+         return this.http.post(`/api/core/service/restart/${name}/${id}`, data, config);
+@@ -2286,13 +2499,20 @@ class FirewallApi {
      async aliasUtilList(alias, config) {
          return this.http.get(`/api/firewall/alias_util/list/${alias}`, config);
      }
 -    async aliasUtilUpdateBogons(config) {
 -        return this.http.get(`/api/firewall/alias_util/update_bogons`, config);
-+    async aliasUtilUpdateBogons(data, config) {
-+        return this.http.post(`/api/firewall/alias_util/update_bogons`, data, config);
++    // Alias update (26.7: replaces alias_util/update_bogons; action is 'geoip' or 'bogons')
++    async aliasUpdate(action, data, config) {
++        return this.http.post(`/api/firewall/alias/update/${action}`, data, config);
      }
      // Category methods
      async categoryAddItem(data, config) {
-@@ -2310,28 +2441,28 @@ class FirewallApi {
+         return this.http.post(`/api/firewall/category/add_item`, data, config);
+     }
++    async categoryDownload(config) {
++        return this.http.get(`/api/firewall/category/download`, config);
++    }
++    async categoryUpload(data, config) {
++        return this.http.post(`/api/firewall/category/upload`, data, config);
++    }
+     async categoryDelItem(uuid, data, config) {
+         return this.http.post(`/api/firewall/category/del_item/${uuid}`, data, config);
+     }
+@@ -2309,29 +2529,20 @@ class FirewallApi {
+         return this.http.post(`/api/firewall/category/set_item/${uuid}`, data, config);
      }
      // FilterBase methods
-     async filterBaseApply(rollbackRevision, data, config) {
+-    async filterBaseApply(rollbackRevision, data, config) {
 -        return this.http.post(`/api/firewall/filter_base/apply/${rollbackRevision}`, data, config);
-+        return this.http.post(`/api/firewall/filter/apply/${rollbackRevision}`, data, config);
-     }
-     async filterBaseCancelRollback(rollbackRevision, data, config) {
+-    }
+-    async filterBaseCancelRollback(rollbackRevision, data, config) {
 -        return this.http.post(`/api/firewall/filter_base/cancel_rollback/${rollbackRevision}`, data, config);
-+        return this.http.post(`/api/firewall/filter/cancel_rollback/${rollbackRevision}`, data, config);
++    async filterBaseApply(data, config) {
++        return this.http.post(`/api/firewall/filter/apply`, data, config);
      }
      async filterBaseGet(config) {
 -        return this.http.get(`/api/firewall/filter_base/get`, config);
@@ -311,15 +535,13 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
      }
      async filterBaseListNetworkSelectOptions(config) {
 -        return this.http.get(`/api/firewall/filter_base/list_network_select_options`, config);
-+        return this.http.get(`/api/firewall/filter/list_network_select_options`, config);
-     }
-     async filterBaseRevert(revision, data, config) {
+-    }
+-    async filterBaseRevert(revision, data, config) {
 -        return this.http.post(`/api/firewall/filter_base/revert/${revision}`, data, config);
-+        return this.http.post(`/api/firewall/filter/revert/${revision}`, data, config);
-     }
-     async filterBaseSavepoint(data, config) {
+-    }
+-    async filterBaseSavepoint(data, config) {
 -        return this.http.post(`/api/firewall/filter_base/savepoint`, data, config);
-+        return this.http.post(`/api/firewall/filter/savepoint`, data, config);
++        return this.http.get(`/api/firewall/filter/list_network_select_options`, config);
      }
      async filterBaseSet(data, config) {
 -        return this.http.post(`/api/firewall/filter_base/set`, data, config);
@@ -327,7 +549,7 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
      }
      // Filter methods
      async filterAddRule(data, config) {
-@@ -2355,6 +2486,25 @@ class FirewallApi {
+@@ -2355,6 +2566,25 @@ class FirewallApi {
      async filterToggleRule(uuid, enabled, data, config) {
          return this.http.post(`/api/firewall/filter/toggle_rule/${uuid}/${enabled}`, data, config);
      }
@@ -353,7 +575,20 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
      // FilterUtil methods
      async filterUtilRuleStats(config) {
          return this.http.get(`/api/firewall/filter_util/rule_stats`, config);
-@@ -2413,6 +2563,12 @@ class FirewallApi {
+@@ -2397,6 +2627,12 @@ class FirewallApi {
+     async nptToggleRule(uuid, enabled, data, config) {
+         return this.http.post(`/api/firewall/npt/toggle_rule/${uuid}/${enabled}`, data, config);
+     }
++    async nptDownloadRules(config) {
++        return this.http.get(`/api/firewall/npt/download_rules`, config);
++    }
++    async nptUploadRules(data, config) {
++        return this.http.post(`/api/firewall/npt/upload_rules`, data, config);
++    }
+     // OneToOne methods
+     async oneToOneAddRule(data, config) {
+         return this.http.post(`/api/firewall/one_to_one/add_rule`, data, config);
+@@ -2413,6 +2649,12 @@ class FirewallApi {
      async oneToOneToggleRule(uuid, enabled, data, config) {
          return this.http.post(`/api/firewall/one_to_one/toggle_rule/${uuid}/${enabled}`, data, config);
      }
@@ -366,7 +601,7 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
      // SourceNat methods
      async sourceNatAddRule(data, config) {
          return this.http.post(`/api/firewall/source_nat/add_rule`, data, config);
-@@ -2429,6 +2585,70 @@ class FirewallApi {
+@@ -2429,6 +2671,86 @@ class FirewallApi {
      async sourceNatToggleRule(uuid, enabled, data, config) {
          return this.http.post(`/api/firewall/source_nat/toggle_rule/${uuid}/${enabled}`, data, config);
      }
@@ -375,6 +610,12 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
 +    }
 +    async sourceNatUploadRules(data, config) {
 +        return this.http.post(`/api/firewall/source_nat/upload_rules`, data, config);
++    }
++    async sourceNatGet(config) {
++        return this.http.get(`/api/firewall/source_nat/get`, config);
++    }
++    async sourceNatSet(data, config) {
++        return this.http.post(`/api/firewall/source_nat/set`, data, config);
 +    }
 +    // DNat (Destination NAT) methods
 +    async dNatAddRule(data, config) {
@@ -386,8 +627,8 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
 +    async dNatGetRule(uuid, config) {
 +        return this.http.get(`/api/firewall/d_nat/get_rule/${uuid}`, config);
 +    }
-+    async dNatMoveRuleBefore(selectedUuid, targetUuid, config) {
-+        return this.http.get(`/api/firewall/d_nat/move_rule_before/${selectedUuid}/${targetUuid}`, config);
++    async dNatMoveRuleBefore(selectedUuid, targetUuid, data, config) {
++        return this.http.post(`/api/firewall/d_nat/move_rule_before/${selectedUuid}/${targetUuid}`, data, config);
 +    }
 +    async dNatSearchRule(config) {
 +        return this.http.get(`/api/firewall/d_nat/search_rule`, config);
@@ -401,11 +642,8 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
 +    async dNatToggleRuleLog(uuid, log, config) {
 +        return this.http.get(`/api/firewall/d_nat/toggle_rule_log/${uuid}/${log}`, config);
 +    }
-+    async dNatApply(rollbackRevision, data, config) {
-+        return this.http.post(`/api/firewall/d_nat/apply/${rollbackRevision || ''}`, data, config);
-+    }
-+    async dNatCancelRollback(rollbackRevision, data, config) {
-+        return this.http.post(`/api/firewall/d_nat/cancel_rollback/${rollbackRevision}`, data, config);
++    async dNatApply(data, config) {
++        return this.http.post(`/api/firewall/d_nat/apply`, data, config);
 +    }
 +    async dNatGet(config) {
 +        return this.http.get(`/api/firewall/d_nat/get`, config);
@@ -419,12 +657,6 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
 +    async dNatListPortSelectOptions(config) {
 +        return this.http.get(`/api/firewall/d_nat/list_port_select_options`, config);
 +    }
-+    async dNatRevert(revision, data, config) {
-+        return this.http.post(`/api/firewall/d_nat/revert/${revision}`, data, config);
-+    }
-+    async dNatSavepoint(data, config) {
-+        return this.http.post(`/api/firewall/d_nat/savepoint`, data, config);
-+    }
 +    async dNatSet(data, config) {
 +        return this.http.post(`/api/firewall/d_nat/set`, data, config);
 +    }
@@ -434,10 +666,29 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
 +    async dNatUploadRules(data, config) {
 +        return this.http.post(`/api/firewall/d_nat/upload_rules`, data, config);
 +    }
++    // Migration methods (26.7: Outbound NAT -> Source NAT migration)
++    async migrationDownloadRules(config) {
++        return this.http.get(`/api/firewall/migration/download_rules`, config);
++    }
++    async migrationCountRules(data, config) {
++        return this.http.post(`/api/firewall/migration/count_rules`, data, config);
++    }
++    async migrationFlush(data, config) {
++        return this.http.post(`/api/firewall/migration/flush`, data, config);
++    }
++    async migrationDownloadOutbound(config) {
++        return this.http.get(`/api/firewall/migration/download_outbound`, config);
++    }
++    async migrationCountOutbound(data, config) {
++        return this.http.post(`/api/firewall/migration/count_outbound`, data, config);
++    }
++    async migrationFlushOutbound(data, config) {
++        return this.http.post(`/api/firewall/migration/flush_outbound`, data, config);
++    }
  }
  
  class InterfacesApi {
-@@ -2563,8 +2783,8 @@ class InterfacesApi {
+@@ -2563,8 +2885,8 @@ class InterfacesApi {
      async overviewInterfacesInfo(details, config) {
          return this.http.get(`/api/interfaces/overview/interfaces_info/${details}`, config);
      }
@@ -448,7 +699,88 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
      }
      // VipSettings methods
      async vipSettingsAddItem(data, config) {
-@@ -2932,7 +3152,7 @@ class BindApi {
+@@ -2613,6 +2935,25 @@ class InterfacesApi {
+     async vlanSettingsSetItem(uuid, data, config) {
+         return this.http.post(`/api/interfaces/vlan_settings/set_item/${uuid}`, data, config);
+     }
++    // TapSettings methods (26.7.9: tap interfaces via MVC/API; item endpoints only, no plain get/set)
++    async tapSettingsAddItem(data, config) {
++        return this.http.post(`/api/interfaces/tap_settings/add_item`, data, config);
++    }
++    async tapSettingsDelItem(uuid, data, config) {
++        return this.http.post(`/api/interfaces/tap_settings/del_item/${uuid}`, data, config);
++    }
++    async tapSettingsGetItem(uuid, config) {
++        return this.http.get(`/api/interfaces/tap_settings/get_item${uuid ? `/${uuid}` : ''}`, config);
++    }
++    async tapSettingsReconfigure(data, config) {
++        return this.http.post(`/api/interfaces/tap_settings/reconfigure`, data, config);
++    }
++    async tapSettingsSearchItem(config) {
++        return this.http.get(`/api/interfaces/tap_settings/search_item`, config);
++    }
++    async tapSettingsSetItem(uuid, data, config) {
++        return this.http.post(`/api/interfaces/tap_settings/set_item/${uuid}`, data, config);
++    }
+     // VxlanSettings methods
+     async vxlanSettingsAddItem(data, config) {
+         return this.http.post(`/api/interfaces/vxlan_settings/add_item`, data, config);
+@@ -2635,6 +2976,54 @@ class InterfacesApi {
+     async vxlanSettingsSetItem(uuid, data, config) {
+         return this.http.post(`/api/interfaces/vxlan_settings/set_item/${uuid}`, data, config);
+     }
++    // WirelessSettings methods (26.7.x: wireless clone interfaces migrated to MVC/API)
++    async wirelessSettingsAddItem(data, config) {
++        return this.http.post(`/api/interfaces/wireless_settings/add_item`, data, config);
++    }
++    async wirelessSettingsDelItem(uuids, data, config) {
++        return this.http.post(`/api/interfaces/wireless_settings/del_item/${uuids}`, data, config);
++    }
++    async wirelessSettingsGet(config) {
++        return this.http.get(`/api/interfaces/wireless_settings/get`, config);
++    }
++    async wirelessSettingsGetItem(uuid, config) {
++        return this.http.get(`/api/interfaces/wireless_settings/get_item${uuid ? `/${uuid}` : ''}`, config);
++    }
++    async wirelessSettingsReconfigure(data, config) {
++        return this.http.post(`/api/interfaces/wireless_settings/reconfigure`, data, config);
++    }
++    async wirelessSettingsSearchItem(config) {
++        return this.http.get(`/api/interfaces/wireless_settings/search_item`, config);
++    }
++    async wirelessSettingsSet(data, config) {
++        return this.http.post(`/api/interfaces/wireless_settings/set`, data, config);
++    }
++    async wirelessSettingsSetItem(uuid, data, config) {
++        return this.http.post(`/api/interfaces/wireless_settings/set_item/${uuid}`, data, config);
++    }
++    // Assignment methods (26.7: interface assignments migrated to MVC/API)
++    async assignmentAddItem(data, config) {
++        return this.http.post(`/api/interfaces/assignment/add_item`, data, config);
++    }
++    async assignmentDelItem(ifnames, data, config) {
++        return this.http.post(`/api/interfaces/assignment/del_item/${ifnames}`, data, config);
++    }
++    // 26.7.x: returns { status: 'pending' | 'ok' } (unapplied assignment changes)
++    async assignmentPending(config) {
++        return this.http.get(`/api/interfaces/assignment/pending`, config);
++    }
++    async assignmentGetItem(ifname, config) {
++        return this.http.get(`/api/interfaces/assignment/get_item/${ifname}`, config);
++    }
++    async assignmentReconfigure(data, config) {
++        return this.http.post(`/api/interfaces/assignment/reconfigure`, data, config);
++    }
++    async assignmentSearchItem(config) {
++        return this.http.get(`/api/interfaces/assignment/search_item`, config);
++    }
++    async assignmentSetItem(ifname, data, config) {
++        return this.http.post(`/api/interfaces/assignment/set_item/${ifname}`, data, config);
++    }
+ }
+ 
+ class AcmeclientApi {
+@@ -2932,7 +3321,7 @@ class BindApi {
          return this.http.post(`/api/bind/record/toggle_record/${uuid}`, data, config);
      }
      // Service methods
@@ -457,7 +789,7 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
          return this.http.get(`/api/bind/service/dnsbl`, config);
      }
      async serviceReconfigure(data, config) {
-@@ -3473,7 +3693,7 @@ class DnscryptproxyApi {
+@@ -3473,7 +3862,7 @@ class DnscryptproxyApi {
          return this.http.post(`/api/dnscryptproxy/server/toggle_server/${uuid}`, data, config);
      }
      // Service methods
@@ -466,7 +798,7 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
          return this.http.get(`/api/dnscryptproxy/service/dnsbl`, config);
      }
      async serviceReconfigure(data, config) {
-@@ -6507,6 +6727,9 @@ class TailscaleApi {
+@@ -6507,6 +6896,9 @@ class TailscaleApi {
      async settingsSetSubnet(uuid, data, config) {
          return this.http.post(`/api/tailscale/settings/set_subnet/${uuid}`, data, config);
      }
@@ -476,7 +808,7 @@ index 4e1ba4f754b88648b7e8b736e5433b6b66c545dc..e01b0071ac2a8c0ffb70d4cdaa382f8d
      // Status methods
      async statusGet(config) {
          return this.http.get(`/api/tailscale/status/get`, config);
-@@ -7259,6 +7482,7 @@ class OPNsenseClient {
+@@ -7259,6 +7651,7 @@ class OPNsenseClient {
          this.kea = new KeaApi(this.http);
          this.monit = new MonitApi(this.http);
          this.openvpn = new OpenvpnApi(this.http);

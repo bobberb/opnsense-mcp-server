@@ -5,7 +5,7 @@ A modular Model Context Protocol (MCP) server that provides **89 module-based to
 ## Features
 
 - **Modular Architecture** - 89 logical tools (one per module) instead of 2000+ individual tools
-- **Complete API Coverage** - Access to 865 core methods and 1272 plugin methods (bindings track OPNsense 26.7.8)
+- **Complete API Coverage** - Access to 872 core methods and 1272 plugin methods (bindings track OPNsense 26.7.9)
 - **Type-Safe** - Full TypeScript support with [@richard-stovall/opnsense-typescript-client](https://www.npmjs.com/package/@richard-stovall/opnsense-typescript-client) v0.5.3
 - **Plugin Support** - Optional support for 64 plugin modules
 - **Smart Organization** - Related operations grouped by module for easier discovery

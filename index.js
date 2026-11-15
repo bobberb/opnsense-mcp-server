@@ -13,7 +13,7 @@ import { OPNsenseClient } from '@richard-stovall/opnsense-typescript-client';
 const TOOLS = [
   {
     "name": "core_manage",
-    "description": "Core system management - 47 available methods including: backupBackups, backupDeleteBackup, backupDiff, backupDownload, backupProviders...",
+    "description": "Core system management - 48 available methods including: backupBackups, backupDeleteBackup, backupDiff, backupDownload, backupProviders...",
     "module": "core",
     "methods": [
       "backupBackups",
@@ -23,6 +23,7 @@ const TOOLS = [
       "backupProviders",
       "backupRevertBackup",
       "dashboardGetDashboard",
+      "dashboardGetDefaults",
       "dashboardPicture",
       "dashboardProductInfoFeed",
       "dashboardRestoreDefaults",
@@ -78,6 +79,7 @@ const TOOLS = [
             "backupProviders",
             "backupRevertBackup",
             "dashboardGetDashboard",
+            "dashboardGetDefaults",
             "dashboardPicture",
             "dashboardProductInfoFeed",
             "dashboardRestoreDefaults",
@@ -760,7 +762,7 @@ const TOOLS = [
   },
   {
     "name": "interfaces_manage",
-    "description": "Network interfaces management - 78 available methods including: gifSettingsAddItem, gifSettingsDelItem, gifSettingsGet, gifSettingsGetIfOptions, gifSettingsGetItem...",
+    "description": "Network interfaces management - 84 available methods including: gifSettingsAddItem, gifSettingsDelItem, gifSettingsGet, gifSettingsGetIfOptions, gifSettingsGetItem...",
     "module": "interfaces",
     "methods": [
       "gifSettingsAddItem",
@@ -819,6 +821,12 @@ const TOOLS = [
       "vlanSettingsReconfigure",
       "vlanSettingsSet",
       "vlanSettingsSetItem",
+      "tapSettingsAddItem",
+      "tapSettingsDelItem",
+      "tapSettingsGetItem",
+      "tapSettingsReconfigure",
+      "tapSettingsSearchItem",
+      "tapSettingsSetItem",
       "vxlanSettingsAddItem",
       "vxlanSettingsDelItem",
       "vxlanSettingsGet",
@@ -905,6 +913,12 @@ const TOOLS = [
             "vlanSettingsReconfigure",
             "vlanSettingsSet",
             "vlanSettingsSetItem",
+            "tapSettingsAddItem",
+            "tapSettingsDelItem",
+            "tapSettingsGetItem",
+            "tapSettingsReconfigure",
+            "tapSettingsSearchItem",
+            "tapSettingsSetItem",
             "vxlanSettingsAddItem",
             "vxlanSettingsDelItem",
             "vxlanSettingsGet",
@@ -16556,6 +16570,7 @@ const METHOD_DOCS = {
       "backupProviders",
       "backupRevertBackup",
       "dashboardGetDashboard",
+      "dashboardGetDefaults",
       "dashboardPicture",
       "dashboardProductInfoFeed",
       "dashboardRestoreDefaults",
@@ -16788,6 +16803,12 @@ const METHOD_DOCS = {
       "vlanSettingsReconfigure",
       "vlanSettingsSet",
       "vlanSettingsSetItem",
+      "tapSettingsAddItem",
+      "tapSettingsDelItem",
+      "tapSettingsGetItem",
+      "tapSettingsReconfigure",
+      "tapSettingsSearchItem",
+      "tapSettingsSetItem",
       "vxlanSettingsAddItem",
       "vxlanSettingsDelItem",
       "vxlanSettingsGet",
@@ -19309,6 +19330,8 @@ class OPNsenseMCPServer {
       'dhcpv6SetOption': 'dhcpv6GetOption',
       // 26.7.x additions
       'wirelessSettingsSetItem': 'wirelessSettingsGetItem',
+      // 26.7.9 additions
+      'tapSettingsSetItem': 'tapSettingsGetItem',
     };
 
     const getMethodName = SET_GET_PAIRS[args.method];
@@ -19457,6 +19480,10 @@ class OPNsenseMCPServer {
       'wirelessSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
       'wirelessSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       'wirelessSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Interfaces - tap interfaces (26.7.9)
+      'tapSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'tapSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'tapSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       // CaptivePortal - templates (26.7)
       'templateGetTemplate': { required: [],       mapper: (p) => p.fileid ? [p.fileid] : [] },
       'templateDelTemplate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
