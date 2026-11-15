@@ -279,12 +279,12 @@ __metadata:
 
 "@richard-stovall/opnsense-typescript-client@patch:@richard-stovall/opnsense-typescript-client@npm%3A0.5.3#~/.yarn/patches/@richard-stovall-opnsense-typescript-client-npm-0.5.3-6a8498cbcb.patch":
   version: 0.5.3
-  resolution: "@richard-stovall/opnsense-typescript-client@patch:@richard-stovall/opnsense-typescript-client@npm%3A0.5.3#~/.yarn/patches/@richard-stovall-opnsense-typescript-client-npm-0.5.3-6a8498cbcb.patch::version=0.5.3&hash=57fb10"
+  resolution: "@richard-stovall/opnsense-typescript-client@patch:@richard-stovall/opnsense-typescript-client@npm%3A0.5.3#~/.yarn/patches/@richard-stovall-opnsense-typescript-client-npm-0.5.3-6a8498cbcb.patch::version=0.5.3&hash=015f6a"
   dependencies:
     axios: "npm:^1.10.0"
   peerDependencies:
     typescript: ^5
-  checksum: 10c0/5173319d90e2b29007c94c4302bd06af9fb06b615075b20b7d017af579b0554de9fb25aebe852e6b28d74c4ff3d1a1fe0b671c9cb5737e401bfce2d0c140e7d3
+  checksum: 10c0/9559c8b536288960297f16c1cd2ac922921ad6e78f5e9ae73df44ac7c3f3239d953fda198df11a33a505816b84d7fe52b28649acd7fbd6d0ab3d4e50ab1b0d9a
   languageName: node
   linkType: hard
 

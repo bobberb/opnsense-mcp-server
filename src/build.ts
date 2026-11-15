@@ -205,6 +205,8 @@ class OPNsenseMCPServer {
       'dhcpv6SetOption': 'dhcpv6GetOption',
       // 26.7.x additions
       'wirelessSettingsSetItem': 'wirelessSettingsGetItem',
+      // 26.7.9 additions
+      'tapSettingsSetItem': 'tapSettingsGetItem',
     };
 
     const getMethodName = SET_GET_PAIRS[args.method];
@@ -353,6 +355,10 @@ class OPNsenseMCPServer {
       'wirelessSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
       'wirelessSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       'wirelessSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      // Interfaces - tap interfaces (26.7.9)
+      'tapSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
+      'tapSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
+      'tapSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
       // CaptivePortal - templates (26.7)
       'templateGetTemplate': { required: [],       mapper: (p) => p.fileid ? [p.fileid] : [] },
       'templateDelTemplate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },

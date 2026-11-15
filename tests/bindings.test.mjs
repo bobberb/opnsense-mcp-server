@@ -23,6 +23,9 @@ const GET_FIXTURES = {
       mode: { hostap: { value: 'hostap', selected: 1 }, sta: { value: 'sta', selected: 0 } },
     },
   },
+  '/api/interfaces/tap_settings/get_item/t1': {
+    tap: { descr: 'old', tun: '0' },
+  },
 };
 
 let server;
@@ -159,6 +162,52 @@ test('unbound host override CSV download/upload', async () => {
   assert.deepEqual([d.method, d.path], ['GET', '/api/unbound/settings/download_host_overrides']);
   const u = one(await call('unbound_manage', 'settingsUploadHostOverrides', { data: { payload: 'a,b' } }));
   assert.deepEqual(u, { method: 'POST', path: '/api/unbound/settings/upload_host_overrides', body: { payload: 'a,b' } });
+});
+
+// ── 26.7.9 additions ──
+
+test('core dashboardGetDefaults GETs get_defaults', async () => {
+  const r = one(await call('core_manage', 'dashboardGetDefaults'));
+  assert.deepEqual([r.method, r.path], ['GET', '/api/core/dashboard/get_defaults']);
+});
+
+test('tap settings: endpoints use the right verb and path', async () => {
+  const cases = [
+    ['tapSettingsSearchItem', 'GET', '/api/interfaces/tap_settings/search_item'],
+    ['tapSettingsGetItem', 'GET', '/api/interfaces/tap_settings/get_item'],
+    ['tapSettingsReconfigure', 'POST', '/api/interfaces/tap_settings/reconfigure'],
+    ['tapSettingsAddItem', 'POST', '/api/interfaces/tap_settings/add_item'],
+  ];
+  for (const [m, verb, p] of cases) {
+    const r = one(await call('interfaces_manage', m));
+    assert.deepEqual([r.method, r.path], [verb, p], m);
+  }
+  const g = one(await call('interfaces_manage', 'tapSettingsGetItem', { uuid: 't1' }));
+  assert.equal(g.path, '/api/interfaces/tap_settings/get_item/t1');
+  const d = one(await call('interfaces_manage', 'tapSettingsDelItem', { uuid: 't1' }));
+  assert.deepEqual([d.method, d.path], ['POST', '/api/interfaces/tap_settings/del_item/t1']);
+});
+
+test('tapSettingsSetItem does safe read-modify-write and needs a uuid', async () => {
+  const { requests: rs } = await call('interfaces_manage', 'tapSettingsSetItem', { uuid: 't1', data: { descr: 'new' } });
+  assert.equal(rs.length, 2, JSON.stringify(rs));
+  assert.deepEqual([rs[0].method, rs[0].path], ['GET', '/api/interfaces/tap_settings/get_item/t1']);
+  assert.deepEqual([rs[1].method, rs[1].path], ['POST', '/api/interfaces/tap_settings/set_item/t1']);
+  assert.deepEqual(rs[1].body, { tap: { descr: 'new', tun: '0' } });
+  const { res, requests: none } = await call('interfaces_manage', 'tapSettingsSetItem', { data: {} });
+  assert.equal(none.length, 0);
+  assert.match(JSON.stringify(res), /requires parameter\(s\): uuid/);
+});
+
+// ── packaging: the committed yarn patch must reproduce the committed bindings ──
+
+test('every generated tool method exists in the client built from the committed patch', () => {
+  // A stale .yarn/patches file means a fresh clone's `yarn build:all` silently drops methods.
+  const client = fs.readFileSync(path.join(ROOT, 'node_modules/@richard-stovall/opnsense-typescript-client/dist/index.js'), 'utf8');
+  const defined = new Set([...client.matchAll(/^\s+async (\w+)\(/gm)].map((m) => m[1]));
+  const tools = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools-generated.json'), 'utf8')).tools;
+  const missing = tools.flatMap((t) => t.inputSchema.properties.method.enum.filter((m) => !defined.has(m)).map((m) => `${t.name}.${m}`));
+  assert.deepEqual(missing, []);
 });
 
 // ── removals ──
