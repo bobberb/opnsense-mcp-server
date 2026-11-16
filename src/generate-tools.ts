@@ -30,8 +30,42 @@ function getModuleMethods(obj: any): string[] {
   );
 }
 
+// Positional path parameter names of a client method, read from its signature,
+// e.g. "async settingsSetJob(uuid, data, config)" -> ["uuid"]. The MCP server maps
+// params to these names at call time, so every one of them must be in the schema.
+function pathParamsOf(fn: Function): string[] {
+  const m = Function.prototype.toString.call(fn).match(/^[^(]*\(([^)]*)\)/);
+  if (!m) return [];
+  return m[1].split(',').map(s => s.split('=')[0].trim())
+    .filter(p => p && p !== 'data' && p !== 'config');
+}
+
+// Schema entries for path params the static list below does not already cover.
+function derivedParamProperties(methods: string[], moduleObj: any, known: Set<string>): any {
+  const users: Record<string, string[]> = {};
+  for (const name of methods) {
+    const fn = moduleObj?.[name];
+    if (typeof fn !== 'function') continue;
+    for (const p of pathParamsOf(fn)) (users[p] ??= []).push(name);
+  }
+  const props: any = {};
+  for (const [p, ms] of Object.entries(users).sort(([a], [b]) => a.localeCompare(b))) {
+    if (known.has(p)) continue;
+    const shown = ms.slice(0, 6).join(', ') + (ms.length > 6 ? `, and ${ms.length - 6} more` : '');
+    props[p] = { type: 'string', description: `Path parameter "${p}" (for ${shown})` };
+  }
+  return props;
+}
+
 // Generate schema for modular tools
-function generateModularSchema(methods: string[]): any {
+function generateModularSchema(methods: string[], moduleObj?: any): any {
+  const schema = buildBaseSchema(methods);
+  const props = schema.properties.params.properties;
+  Object.assign(props, derivedParamProperties(methods, moduleObj, new Set(Object.keys(props))));
+  return schema;
+}
+
+function buildBaseSchema(methods: string[]): any {
   return {
     type: 'object',
     properties: {
@@ -74,7 +108,7 @@ function generateModularSchema(methods: string[]): any {
           // Service operation parameters
           name: {
             type: 'string',
-            description: 'Service name (required for serviceRestart, serviceStart, serviceStop)'
+            description: 'Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)'
           },
           id: {
             type: 'string',
@@ -180,7 +214,7 @@ if (coreMethods.length > 0) {
     description: `Core system management - ${coreMethods.length} available methods including: ${coreMethods.slice(0, 5).join(', ')}...`,
     module: 'core',
     methods: coreMethods,
-    inputSchema: generateModularSchema(coreMethods)
+    inputSchema: generateModularSchema(coreMethods, client.core)
   });
 }
 
@@ -192,7 +226,7 @@ if (firewallMethods.length > 0) {
     description: `Firewall management - ${firewallMethods.length} available methods including: ${firewallMethods.slice(0, 5).join(', ')}...`,
     module: 'firewall',
     methods: firewallMethods,
-    inputSchema: generateModularSchema(firewallMethods)
+    inputSchema: generateModularSchema(firewallMethods, client.firewall)
   });
 }
 
@@ -204,7 +238,7 @@ if (authMethods.length > 0) {
     description: `Authentication management - ${authMethods.length} available methods including: ${authMethods.slice(0, 5).join(', ')}...`,
     module: 'auth',
     methods: authMethods,
-    inputSchema: generateModularSchema(authMethods)
+    inputSchema: generateModularSchema(authMethods, client.auth)
   });
 }
 
@@ -216,7 +250,7 @@ if (interfacesMethods.length > 0) {
     description: `Network interfaces management - ${interfacesMethods.length} available methods including: ${interfacesMethods.slice(0, 5).join(', ')}...`,
     module: 'interfaces',
     methods: interfacesMethods,
-    inputSchema: generateModularSchema(interfacesMethods)
+    inputSchema: generateModularSchema(interfacesMethods, client.interfaces)
   });
 }
 
@@ -238,7 +272,7 @@ directModules.forEach(moduleName => {
         description: `${moduleName.charAt(0).toUpperCase() + moduleName.slice(1)} management - ${methods.length} available methods including: ${methods.slice(0, 5).join(', ')}...`,
         module: moduleName,
         methods: methods,
-        inputSchema: generateModularSchema(methods)
+        inputSchema: generateModularSchema(methods, module)
       });
     }
   }
@@ -267,7 +301,7 @@ allPluginMethods.forEach(({ plugin, methods }) => {
     module: 'plugins',
     submodule: plugin,
     methods: methods,
-    inputSchema: generateModularSchema(methods)
+    inputSchema: generateModularSchema(methods, plugins[plugin])
   });
 });
 

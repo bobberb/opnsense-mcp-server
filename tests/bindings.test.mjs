@@ -1,7 +1,8 @@
 // End-to-end binding tests: run the built index.js as an MCP server over stdio,
 // point it at a fake OPNsense HTTP server, and assert the exact HTTP verb, path
 // and body each tool call produces. Covers the 26.7.x API delta and the verb
-// fixes made alongside it. Run: node --test tests/
+// fixes made alongside it, and signature-driven path-param mapping for every tool method
+// (sweep test at the end). Run: yarn test
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
@@ -67,7 +68,7 @@ async function call(tool, method, params) {
 before(async () => {
   const port = await startFakeOpnsense();
   mcp = spawn(process.execPath, [path.join(ROOT, 'index.js'), '--url', `http://127.0.0.1:${port}`,
-    '--api-key', 'k', '--api-secret', 's'], { stdio: ['pipe', 'pipe', 'pipe'] });
+    '--api-key', 'k', '--api-secret', 's', '--plugins'], { stdio: ['pipe', 'pipe', 'pipe'] });
   let buf = '';
   mcp.stdout.on('data', (d) => {
     buf += d;
@@ -247,3 +248,115 @@ test('backup delete/revert stay confirm-gated, then POST', async () => {
     assert.deepEqual([r.method, r.path], ['POST', `/api/core/backup/${p}/b1`], m);
   }
 });
+
+// ── positional path params are mapped from each method's own signature ──
+// Before: only ~100 hand-mapped methods got positional args; every other method with a path
+// param (cron jobs, gateways, unbound/dnsmasq/wireguard items, ...) received the params object
+// as its first argument and called e.g. /api/cron/settings/get_job/[object Object].
+
+test('cron job methods put uuid (and enabled) in the path', async () => {
+  const g = one(await call('cron_manage', 'settingsGetJob', { uuid: 'j1' }));
+  assert.deepEqual([g.method, g.path], ['GET', '/api/cron/settings/get_job/j1']);
+  const t = one(await call('cron_manage', 'settingsToggleJob', { uuid: 'j1', enabled: '1' }));
+  assert.deepEqual([t.method, t.path], ['POST', '/api/cron/settings/toggle_job/j1/1']);
+  const s = one(await call('cron_manage', 'settingsSetJob', { uuid: 'j1', data: { job: { enabled: '1' } } }));
+  assert.deepEqual(s, { method: 'POST', path: '/api/cron/settings/set_job/j1', body: { job: { enabled: '1' } } });
+});
+
+test('toggle without enabled flips: no literal "undefined" segment reaches OPNsense', async () => {
+  for (const [tool, m, p] of [['cron_manage', 'settingsToggleJob', '/api/cron/settings/toggle_job/j1'],
+                              ['firewall_manage', 'filterToggleRule', '/api/firewall/filter/toggle_rule/r1']]) {
+    const r = one(await call(tool, m, { uuid: m === 'filterToggleRule' ? 'r1' : 'j1' }));
+    assert.equal(r.path, p, m);
+  }
+});
+
+test('write endpoints still reject a missing required path param before any request', async () => {
+  for (const [tool, m] of [['cron_manage', 'settingsSetJob'], ['routing_manage', 'settingsSetGateway'],
+                           ['unbound_manage', 'settingsDelForward']]) {
+    const { res, requests: rs } = await call(tool, m, { data: {} });
+    assert.equal(rs.length, 0, m);
+    assert.match(JSON.stringify(res), /requires parameter\(s\): uuid/, m);
+  }
+});
+
+test('gateway and plugin-free item methods map uuid', async () => {
+  const gw = one(await call('routing_manage', 'settingsSetGateway', { uuid: 'WAN_DHCP', data: { gateway_item: { monitor: '1.1.1.1' } } }));
+  assert.deepEqual([gw.method, gw.path], ['POST', '/api/routing/settings/set_gateway/WAN_DHCP']);
+  const wg = one(await call('wireguard_manage', 'clientGetClient', { uuid: 'c1' }));
+  assert.deepEqual([wg.method, wg.path], ['GET', '/api/wireguard/client/get_client/c1']);
+  const ub = one(await call('unbound_manage', 'settingsGetForward', { uuid: 'f1' }));
+  assert.equal(ub.path, '/api/unbound/settings/get_forward/f1');
+});
+
+test('read endpoints may omit their trailing param (returns the blank template)', async () => {
+  const r = one(await call('cron_manage', 'settingsGetJob'));
+  assert.deepEqual([r.method, r.path], ['GET', '/api/cron/settings/get_job']);
+});
+
+test('aliasGetAliasUUID takes name, or alias as a synonym', async () => {
+  for (const params of [{ name: 'iot_allowed_ports' }, { alias: 'iot_allowed_ports' }]) {
+    const r = one(await call('firewall_manage', 'aliasGetAliasUUID', params));
+    assert.equal(r.path, '/api/firewall/alias/get_alias_u_u_i_d/iot_allowed_ports', JSON.stringify(params));
+  }
+});
+
+test('same method name in different modules uses that module\'s signature', async () => {
+  // core serviceRestart(name, id) vs unbound serviceRestart(data): the old name-keyed table
+  // demanded "name" for every module's serviceRestart.
+  const u = one(await call('unbound_manage', 'serviceRestart'));
+  assert.deepEqual([u.method, u.path], ['POST', '/api/unbound/service/restart']);
+  const c = one(await call('core_manage', 'serviceRestart', { name: 'unbound' }));
+  assert.deepEqual([c.method, c.path], ['POST', '/api/core/service/restart/unbound']);
+  // ids settingsToggleRule(sids, enabled) vs trafficshaper settingsToggleRule(uuid, enabled)
+  const ids = one(await call('ids_manage', 'settingsToggleRule', { sid: '2010935', enabled: '0' }));
+  assert.equal(ids.path, '/api/ids/settings/toggle_rule/2010935/0');
+  const ts = one(await call('trafficshaper_manage', 'settingsToggleRule', { uuid: 't1', enabled: '1' }));
+  assert.equal(ts.path, '/api/trafficshaper/settings/toggle_rule/t1/1');
+});
+
+test('every path param of every tool method is offered in its schema', () => {
+  const tools = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools-generated.json'), 'utf8')).tools;
+  const cron = tools.find((t) => t.name === 'cron_manage').inputSchema.properties.params.properties;
+  assert.ok(cron.uuid && cron.enabled);
+  const ipsec = tools.find((t) => t.name === 'ipsec_manage').inputSchema.properties.params.properties;
+  assert.ok(ipsec.ikeid && ipsec.seqid, 'derived path params (ikeid/seqid) present');
+});
+
+test('dNatToggleRule maps enabled to its inverted "disabled" path segment', async () => {
+  // d_nat/toggle_rule/{uuid}/{disabled}: the old mapper sent enabled=1 into the disabled slot,
+  // which disabled the port forward the caller asked to enable.
+  const on = one(await call('firewall_manage', 'dNatToggleRule', { uuid: 'n1', enabled: '1' }));
+  assert.equal(on.path, '/api/firewall/d_nat/toggle_rule/n1/0');
+  const off = one(await call('firewall_manage', 'dNatToggleRule', { uuid: 'n1', enabled: '0' }));
+  assert.equal(off.path, '/api/firewall/d_nat/toggle_rule/n1/1');
+  const flip = one(await call('firewall_manage', 'dNatToggleRule', { uuid: 'n1' }));
+  assert.equal(flip.path, '/api/firewall/d_nat/toggle_rule/n1');
+  const explicit = one(await call('firewall_manage', 'dNatToggleRule', { uuid: 'n1', disabled: '1' }));
+  assert.equal(explicit.path, '/api/firewall/d_nat/toggle_rule/n1/1');
+});
+
+// Sweep: call every method of every tool (plugins included) with all of its schema params filled.
+// No request may carry an unmapped value, and nothing may fail param validation.
+test('sweep: no method sends [object Object], undefined or null in its URL', async () => {
+  const listed = await rpc('tools/list', {});
+  const bad = [];
+  let calls = 0;
+  for (const tool of listed.result.tools) {
+    const props = tool.inputSchema.properties.params.properties;
+    const params = { data: {}, confirm: true };
+    for (const [k, v] of Object.entries(props)) {
+      if (v.type === 'string' && k !== 'searchPhrase') params[k] = `v_${k}`;
+    }
+    for (const m of tool.inputSchema.properties.method.enum) {
+      calls++;
+      const { res, requests: rs } = await call(tool.name, m, params);
+      const text = JSON.stringify(res);
+      if (res?.isError || /requires parameter|Error calling/.test(text)) bad.push(`${tool.name}.${m}: ${text.slice(0, 120)}`);
+      for (const r of rs) if (/\[object|undefined|null/.test(r.path)) bad.push(`${tool.name}.${m}: ${r.method} ${r.path}`);
+    }
+  }
+  assert.ok(calls > 2000, `swept ${calls} methods`);
+  assert.deepEqual(bad, []);
+});
+

@@ -179,6 +179,20 @@ The modular MCP server provides your AI assistant with 89 module-based tools. Ea
 }
 ```
 
+**Path parameters:** values that OPNsense takes in the URL (`uuid`, `enabled`, `jobid`, `vpnid`, ...) are passed by name in `params`; the server reads each client method's own signature to place them, and every such name is listed in the tool's schema. `data` is the POST body. For example, enabling a cron job:
+
+```json
+{
+  "tool": "cron_manage",
+  "arguments": {
+    "method": "settingsToggleJob",
+    "params": { "uuid": "f23a9605-6469-4d6f-8848-6a28d0cba003", "enabled": "1" }
+  }
+}
+```
+
+Omitting a trailing optional value (e.g. `enabled` on a toggle) flips the item; omitting a required one on a write endpoint is rejected before any request is sent. Toggles whose endpoint takes `disabled` (e.g. `dNatToggleRule`) accept `enabled` and invert it.
+
 **Example prompts:**
 
 - "Use core_manage to check system status"
