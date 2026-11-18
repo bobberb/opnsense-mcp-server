@@ -154,7 +154,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -495,7 +495,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -576,6 +576,18 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "disabled": {
+              "type": "string",
+              "description": "Path parameter \"disabled\" (for dNatToggleRule)"
+            },
+            "log": {
+              "type": "string",
+              "description": "Path parameter \"log\" (for filterToggleRuleLog, dNatToggleRuleLog)"
+            },
+            "selectedUuid": {
+              "type": "string",
+              "description": "Path parameter \"selectedUuid\" (for filterMoveRuleBefore, dNatMoveRuleBefore)"
             }
           }
         }
@@ -670,7 +682,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -751,6 +763,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "username": {
+              "type": "string",
+              "description": "Path parameter \"username\" (for userAddApiKey)"
             }
           }
         }
@@ -975,7 +991,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -1056,6 +1072,22 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "details": {
+              "type": "string",
+              "description": "Path parameter \"details\" (for overviewInterfacesInfo)"
+            },
+            "identifier": {
+              "type": "string",
+              "description": "Path parameter \"identifier\" (for overviewReloadInterface)"
+            },
+            "interfaceName": {
+              "type": "string",
+              "description": "Path parameter \"interfaceName\" (for overviewGetInterface)"
+            },
+            "uuids": {
+              "type": "string",
+              "description": "Path parameter \"uuids\" (for wirelessSettingsDelItem)"
             }
           }
         }
@@ -1166,7 +1198,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -1247,6 +1279,18 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "group": {
+              "type": "string",
+              "description": "Path parameter \"group\" (for voucherDropExpiredVouchers, voucherDropVoucherGroup, voucherListVouchers)"
+            },
+            "provider": {
+              "type": "string",
+              "description": "Path parameter \"provider\" (for voucherDropExpiredVouchers, voucherDropVoucherGroup, voucherExpireVoucher, voucherGenerateVouchers, voucherListVoucherGroups, voucherListVouchers)"
+            },
+            "zoneid": {
+              "type": "string",
+              "description": "Path parameter \"zoneid\" (for accessLogoff, accessLogon, sessionConnect, sessionDisconnect, sessionList)"
             }
           }
         }
@@ -1319,7 +1363,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -1470,7 +1514,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -1551,6 +1595,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "ip": {
+              "type": "string",
+              "description": "Path parameter \"ip\" (for leasesDelLease)"
             }
           }
         }
@@ -1623,7 +1671,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -1704,6 +1752,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "ip": {
+              "type": "string",
+              "description": "Path parameter \"ip\" (for leasesDelLease)"
             }
           }
         }
@@ -1784,7 +1836,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -2107,7 +2159,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -2188,6 +2240,82 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "creatorid": {
+              "type": "string",
+              "description": "Path parameter \"creatorid\" (for firewallDelState)"
+            },
+            "detail": {
+              "type": "string",
+              "description": "Path parameter \"detail\" (for packetCaptureView, systemhealthExportAsCSV, systemhealthGetSystemHealth)"
+            },
+            "emulation": {
+              "type": "string",
+              "description": "Path parameter \"emulation\" (for networkinsightTimeserie)"
+            },
+            "field": {
+              "type": "string",
+              "description": "Path parameter \"field\" (for networkinsightTimeserie, networkinsightTop)"
+            },
+            "fromDate": {
+              "type": "string",
+              "description": "Path parameter \"fromDate\" (for networkinsightExport, networkinsightTimeserie, networkinsightTop)"
+            },
+            "interfaces": {
+              "type": "string",
+              "description": "Path parameter \"interfaces\" (for trafficTop)"
+            },
+            "jobid": {
+              "type": "string",
+              "description": "Path parameter \"jobid\" (for packetCaptureDownload, packetCaptureRemove, packetCaptureStart, packetCaptureStop, packetCaptureView, pingRemove, and 2 more)"
+            },
+            "macaddr": {
+              "type": "string",
+              "description": "Path parameter \"macaddr\" (for packetCaptureMacInfo)"
+            },
+            "maxHits": {
+              "type": "string",
+              "description": "Path parameter \"maxHits\" (for networkinsightTop)"
+            },
+            "measure": {
+              "type": "string",
+              "description": "Path parameter \"measure\" (for networkinsightTimeserie, networkinsightTop)"
+            },
+            "pollInterval": {
+              "type": "string",
+              "description": "Path parameter \"pollInterval\" (for trafficStream)"
+            },
+            "provider": {
+              "type": "string",
+              "description": "Path parameter \"provider\" (for networkinsightExport, networkinsightTimeserie, networkinsightTop)"
+            },
+            "resolution": {
+              "type": "string",
+              "description": "Path parameter \"resolution\" (for networkinsightExport, networkinsightTimeserie)"
+            },
+            "rrd": {
+              "type": "string",
+              "description": "Path parameter \"rrd\" (for systemhealthExportAsCSV, systemhealthGetSystemHealth)"
+            },
+            "section": {
+              "type": "string",
+              "description": "Path parameter \"section\" (for firewallPfStatistics)"
+            },
+            "stateid": {
+              "type": "string",
+              "description": "Path parameter \"stateid\" (for firewallDelState)"
+            },
+            "status": {
+              "type": "string",
+              "description": "Path parameter \"status\" (for interfaceCarpStatus)"
+            },
+            "toDate": {
+              "type": "string",
+              "description": "Path parameter \"toDate\" (for networkinsightExport, networkinsightTimeserie, networkinsightTop)"
+            },
+            "unused": {
+              "type": "string",
+              "description": "Path parameter \"unused\" (for systemhealthGetSystemHealth)"
             }
           }
         }
@@ -2314,7 +2442,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -2503,7 +2631,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -2584,6 +2712,18 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "clear": {
+              "type": "string",
+              "description": "Path parameter \"clear\" (for firmwareLog)"
+            },
+            "pkgName": {
+              "type": "string",
+              "description": "Path parameter \"pkgName\" (for firmwareDetails, firmwareInstall, firmwareLicense, firmwareLock, firmwareRemove, firmwareReinstall, and 1 more)"
+            },
+            "version": {
+              "type": "string",
+              "description": "Path parameter \"version\" (for firmwareChangelog)"
             }
           }
         }
@@ -2720,7 +2860,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -2801,6 +2941,18 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "alertId": {
+              "type": "string",
+              "description": "Path parameter \"alertId\" (for serviceGetAlertInfo)"
+            },
+            "sids": {
+              "type": "string",
+              "description": "Path parameter \"sids\" (for settingsToggleRule)"
+            },
+            "wait": {
+              "type": "string",
+              "description": "Path parameter \"wait\" (for serviceUpdateRules)"
             }
           }
         }
@@ -3017,7 +3169,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -3098,6 +3250,22 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "ikeid": {
+              "type": "string",
+              "description": "Path parameter \"ikeid\" (for tunnelDelPhase1, tunnelTogglePhase1)"
+            },
+            "seqid": {
+              "type": "string",
+              "description": "Path parameter \"seqid\" (for tunnelDelPhase2, tunnelTogglePhase2)"
+            },
+            "size": {
+              "type": "string",
+              "description": "Path parameter \"size\" (for keyPairsGenKeyPair)"
+            },
+            "type": {
+              "type": "string",
+              "description": "Path parameter \"type\" (for keyPairsGenKeyPair)"
             }
           }
         }
@@ -3284,7 +3452,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -3467,7 +3635,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -3548,6 +3716,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "format": {
+              "type": "string",
+              "description": "Path parameter \"format\" (for statusGet)"
             }
           }
         }
@@ -3660,7 +3832,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -3741,6 +3913,18 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "certref": {
+              "type": "string",
+              "description": "Path parameter \"certref\" (for exportDownload)"
+            },
+            "type": {
+              "type": "string",
+              "description": "Path parameter \"type\" (for instancesGenKey)"
+            },
+            "vpnid": {
+              "type": "string",
+              "description": "Path parameter \"vpnid\" (for exportAccounts, exportDownload, exportStorePresets, exportValidatePresets)"
             }
           }
         }
@@ -3819,7 +4003,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -3974,7 +4158,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -4055,6 +4239,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "disabled": {
+              "type": "string",
+              "description": "Path parameter \"disabled\" (for routesToggleroute)"
             }
           }
         }
@@ -4141,7 +4329,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -4306,7 +4494,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -4483,7 +4671,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -4670,7 +4858,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -4751,6 +4939,14 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "caref": {
+              "type": "string",
+              "description": "Path parameter \"caref\" (for caCaInfo, certCaInfo, crlDel, crlGet, crlGetOcspInfoData, crlRawDump, and 1 more)"
+            },
+            "type": {
+              "type": "string",
+              "description": "Path parameter \"type\" (for caGenerateFile, certGenerateFile)"
             }
           }
         }
@@ -4897,7 +5093,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -4978,6 +5174,18 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "clients": {
+              "type": "string",
+              "description": "Path parameter \"clients\" (for overviewRolling)"
+            },
+            "maximum": {
+              "type": "string",
+              "description": "Path parameter \"maximum\" (for overviewTotals)"
+            },
+            "timeperiod": {
+              "type": "string",
+              "description": "Path parameter \"timeperiod\" (for overviewRolling)"
             }
           }
         }
@@ -5090,7 +5298,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -5324,7 +5532,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -5478,7 +5686,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -5688,7 +5896,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -5769,6 +5977,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "zonename": {
+              "type": "string",
+              "description": "Path parameter \"zonename\" (for generalZoneshow, generalZonetest)"
             }
           }
         }
@@ -5930,7 +6142,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -6090,7 +6302,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -6248,7 +6460,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -6418,7 +6630,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -6570,7 +6782,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -6732,7 +6944,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -6813,6 +7025,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "decisionId": {
+              "type": "string",
+              "description": "Path parameter \"decisionId\" (for decisionsDelete)"
             }
           }
         }
@@ -6872,7 +7088,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -7012,7 +7228,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -7152,7 +7368,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -7366,7 +7582,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -7532,7 +7748,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -7806,7 +8022,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -7968,7 +8184,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -8120,7 +8336,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -8450,7 +8666,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -8531,6 +8747,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "type": {
+              "type": "string",
+              "description": "Path parameter \"type\" (for exportDownload)"
             }
           }
         }
@@ -8596,7 +8816,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -8750,7 +8970,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -8902,7 +9122,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -9056,7 +9276,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -9226,7 +9446,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -9378,7 +9598,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -9530,7 +9750,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -9682,7 +9902,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -9834,7 +10054,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -10000,7 +10220,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -10336,7 +10556,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -10417,6 +10637,22 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "fileno": {
+              "type": "string",
+              "description": "Path parameter \"fileno\" (for logsAccesses, logsErrors, logsStreamaccesses, logsStreamerrors)"
+            },
+            "page": {
+              "type": "string",
+              "description": "Path parameter \"page\" (for logsAccesses, logsErrors, logsStreamaccesses, logsStreamerrors)"
+            },
+            "perPage": {
+              "type": "string",
+              "description": "Path parameter \"perPage\" (for logsAccesses, logsErrors, logsStreamaccesses, logsStreamerrors)"
+            },
+            "query": {
+              "type": "string",
+              "description": "Path parameter \"query\" (for logsAccesses, logsErrors, logsStreamaccesses, logsStreamerrors)"
             }
           }
         }
@@ -10488,7 +10724,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -10654,7 +10890,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -10808,7 +11044,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -10962,7 +11198,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -11114,7 +11350,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -11384,7 +11620,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -11618,7 +11854,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -11770,7 +12006,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -11922,7 +12158,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -12074,7 +12310,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -12478,7 +12714,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -12559,6 +12795,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "format": {
+              "type": "string",
+              "description": "Path parameter \"format\" (for diagnosticsSearchOspfv3route)"
             }
           }
         }
@@ -12700,7 +12940,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -12854,7 +13094,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -13020,7 +13260,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -13101,6 +13341,14 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "nodeType": {
+              "type": "string",
+              "description": "Path parameter \"nodeType\" (for settingsDel, settingsGet, settingsSearch, settingsSet, settingsToggle, statusToggle)"
+            },
+            "wait": {
+              "type": "string",
+              "description": "Path parameter \"wait\" (for statusSum)"
             }
           }
         }
@@ -13172,7 +13420,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -13338,7 +13586,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -13524,7 +13772,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -13672,7 +13920,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -13753,6 +14001,10 @@ const TOOLS = [
             "confirm": {
               "type": "boolean",
               "description": "Required for destructive operations: systemHalt, systemReboot, backupRevertBackup, backupDeleteBackup. Must be true to execute."
+            },
+            "details": {
+              "type": "string",
+              "description": "Path parameter \"details\" (for serviceList)"
             }
           }
         }
@@ -13824,7 +14076,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -13978,7 +14230,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -14140,7 +14392,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -14318,7 +14570,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -14470,7 +14722,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -14644,7 +14896,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -14796,7 +15048,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -14966,7 +15218,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -15194,7 +15446,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -15346,7 +15598,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -15516,7 +15768,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -15678,7 +15930,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -15830,7 +16082,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -15984,7 +16236,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -16156,7 +16408,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -16308,7 +16560,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -16466,7 +16718,7 @@ const TOOLS = [
             },
             "name": {
               "type": "string",
-              "description": "Service name (required for serviceRestart, serviceStart, serviceStop)"
+              "description": "Name: service name (core serviceRestart/serviceStart/serviceStop) or alias name (firewall aliasGetAliasUUID)"
             },
             "id": {
               "type": "string",
@@ -19178,6 +19430,12 @@ class OPNsenseMCPServer {
         apiSecret: this.config.apiSecret,
         verifySsl: this.config.verifySsl ?? true,
       });
+      // Client URL templates interpolate every path param ("/toggle_job/${uuid}/${enabled}"), so an
+      // omitted trailing optional param would reach OPNsense as the literal "undefined". Drop those.
+      this.client.http.client.interceptors.request.use((cfg) => {
+        if (typeof cfg.url === 'string') cfg.url = cfg.url.replace(/(?:[/]undefined)+(?=$|[?])/, '');
+        return cfg;
+      });
     }
     return this.client;
   }
@@ -19390,134 +19648,66 @@ class OPNsenseMCPServer {
       }
     }
 
-    // Methods that take positional path parameters instead of a single object.
-    // Each entry maps method name to { required: [...], mapper: (params) => args[] }.
-    const positionalMethods = {
-      // Core - backup operations
-      'backupBackups':       { required: ['host'],                     mapper: (p) => [p.host] },
-      'backupDeleteBackup':  { required: ['backup'],                   mapper: (p) => [p.backup, p.data || {}] },
-      'backupDiff':          { required: ['host', 'backup1', 'backup2'], mapper: (p) => [p.host, p.backup1, p.backup2] },
-      'backupDownload':      { required: ['host'],                     mapper: (p) => [p.host, p.backup] },
-      'backupRevertBackup':  { required: ['backup'],                   mapper: (p) => [p.backup, p.data || {}] },
-      // Core - HA sync operations
-      'hasyncStatusRemoteService': { required: ['action', 'service', 'serviceId'], mapper: (p) => [p.action, p.service, p.serviceId] },
-      'hasyncStatusRestart':    { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
-      'hasyncStatusRestartAll': { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
-      'hasyncStatusStart':      { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
-      'hasyncStatusStop':       { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
-      // Core - service operations
-      'serviceRestart': { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
-      'serviceStart':   { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
-      'serviceStop':    { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
-      // Core - snapshot operations
-      'snapshotsActivate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'snapshotsDel':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'snapshotsGet':      { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'snapshotsSet':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Core - tunable operations
-      'tunablesDelItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'tunablesGetItem':  { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'tunablesSetItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // IDS - ruleset operations
-      'settingsToggleRuleset': { required: ['filenames', 'enabled'], mapper: (p) => [p.filenames, p.enabled, p.data || {}] },
-      'settingsSetRuleset':    { required: ['filename'],             mapper: (p) => [p.filename, p.data || {}] },
-      'settingsToggleRule':    { required: ['sid', 'enabled'],       mapper: (p) => [p.sid, p.enabled] },
-      // Firewall - filter rules
-      'filterGetRule':        { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'filterSetRule':        { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'filterDelRule':        { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'filterToggleRule':     { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'filterToggleRuleLog':  { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
-      'filterMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
-      // Firewall - aliases
-      'aliasUpdate':      { required: ['action'], mapper: (p) => [p.action, p.data || {}] },
-      'aliasGetItem':     { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'aliasSetItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'aliasDelItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'aliasToggleItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'aliasGetAliasUUID': { required: ['name'], mapper: (p) => [p.name] },
-      'aliasUtilAdd':     { required: ['alias'], mapper: (p) => [p.alias, p.data || {}] },
-      'aliasUtilDelete':  { required: ['alias'], mapper: (p) => [p.alias, p.data || {}] },
-      'aliasUtilFlush':   { required: ['alias'], mapper: (p) => [p.alias, p.data || {}] },
-      'aliasUtilList':    { required: ['alias'], mapper: (p) => [p.alias] },
-      // Firewall - categories
-      'categoryGetItem':  { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'categorySetItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'categoryDelItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Firewall - groups
-      'groupGetItem':     { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'groupSetItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'groupDelItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Firewall - NAT rules (NPT, 1:1, SNAT, DNAT)
-      'nptGetRule':       { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'nptSetRule':       { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'nptDelRule':       { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'nptToggleRule':    { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'oneToOneGetRule':  { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'oneToOneSetRule':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'oneToOneDelRule':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'oneToOneToggleRule': { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'sourceNatGetRule':   { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'sourceNatSetRule':   { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'sourceNatDelRule':   { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'sourceNatToggleRule': { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'dNatGetRule':      { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'dNatSetRule':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dNatDelRule':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dNatToggleRule':   { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'dNatToggleRuleLog': { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
-      'dNatMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
-      // Firewall - Outbound->SourceNat migration (26.7): all take a body only, handled by generic fallback
-      // Interfaces - assignments (26.7)
-      'assignmentGetItem': { required: [],         mapper: (p) => p.ifname ? [p.ifname] : [] },
-      'assignmentSetItem': { required: ['ifname'], mapper: (p) => [p.ifname, p.data || {}] },
-      'assignmentDelItem': { required: ['ifnames'], mapper: (p) => [p.ifnames, p.data || {}] },
-      // Routing - gateway groups (26.7)
-      'groupSettingsGet': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'groupSettingsSet': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'groupSettingsDel': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Interfaces - wireless clones (26.7.x); delItem accepts comma-separated uuids
-      'wirelessSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'wirelessSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'wirelessSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Interfaces - tap interfaces (26.7.9)
-      'tapSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'tapSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'tapSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // CaptivePortal - templates (26.7)
-      'templateGetTemplate': { required: [],       mapper: (p) => p.fileid ? [p.fileid] : [] },
-      'templateDelTemplate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Diagnostics - system health (26.7)
-      'systemhealthDelRRD': { required: ['report'], mapper: (p) => [p.report, p.data || {}] },
-      // Kea - DHCP options (26.7)
-      'dhcpv4GetOption': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'dhcpv4SetOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dhcpv4DelOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dhcpv6GetOption': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'dhcpv6SetOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dhcpv6DelOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Kea - lease deletion (26.7)
-      'leases4DelLease': { required: ['ips'], mapper: (p) => [p.ips, p.data || {}] },
-      'leases6DelLease': { required: ['ips'], mapper: (p) => [p.ips, p.data || {}] },
+    // ── Positional path parameters, derived from the client method's own signature ──
+    // Client methods look like:
+    //   async settingsSetJob(uuid, data, config) { return this.http.post('/api/cron/settings/set_job/' + uuid, data, config); }
+    // Each named parameter is filled from params by name (plus a few aliases). The signature is read
+    // off the actual method being called, so a name shared by many modules with different signatures
+    // (serviceRestart, settingsToggleRule, ...) always maps correctly. Regexes use character classes
+    // instead of backslash escapes because this code is emitted from a template literal.
+    const PARAM_ALIASES = {
+      uuids: ['uuid'], selectedUuid: ['uuid'], sids: ['sid'], filenames: ['filename'],
+      ifnames: ['ifname'], ips: ['ip'], name: ['alias'],
     };
+    // Trailing path params that may be omitted on write endpoints: toggle without "enabled" flips,
+    // service actions without an instance id act on the default instance.
+    const OPTIONAL_PARAMS = new Set(['enabled', 'disabled', 'id', 'service', 'serviceId']);
 
-    const positionalDef = positionalMethods[args.method];
-    if (positionalDef) {
-      // Validate required positional parameters
-      const missing = positionalDef.required.filter(r => callParams[r] === undefined || callParams[r] === null);
-      if (missing.length > 0) {
-        throw new Error(`Method '${args.method}' requires parameter(s): ${missing.join(', ')}`);
+    const fnSrc = Function.prototype.toString.call(method);
+    const sigMatch = fnSrc.match(/^[^(]*[(]([^)]*)[)]/);
+    const sigParams = sigMatch
+      ? sigMatch[1].split(',').map((s) => s.split('=')[0].trim()).filter(Boolean)
+      : [];
+    const verbMatch = fnSrc.match(/this[.]http[.](get|post|put|delete|patch)[(]/);
+    const isRead = verbMatch ? verbMatch[1] === 'get' : false;
+    const pathParams = sigParams.filter((p) => p !== 'data' && p !== 'config');
+
+    if (pathParams.length === 0) {
+      // Body-only methods: unwrap data if present, otherwise pass params as the body
+      if (Object.keys(callParams).length > 0) {
+        return await method.call(moduleObj, callParams.data || callParams);
       }
-      const positionalArgs = positionalDef.mapper(callParams);
-      return await method.call(moduleObj, ...positionalArgs);
-    }
-
-    // For non-positional methods: unwrap data if present, otherwise pass params as-is
-    if (Object.keys(callParams).length > 0) {
-      return await method.call(moduleObj, callParams.data || callParams);
-    } else {
       return await method.call(moduleObj);
     }
+
+    const present = (v) => v !== undefined && v !== null && v !== '';
+    // Endpoints whose toggle takes "disabled" (e.g. firewall d_nat/toggle_rule/{uuid}/{disabled})
+    // accept the caller's "enabled" inverted; passing it through as-is would disable on enabled=1.
+    if (pathParams.includes('disabled') && !present(callParams.disabled)
+        && (String(callParams.enabled) === '0' || String(callParams.enabled) === '1')) {
+      callParams.disabled = String(callParams.enabled) === '1' ? '0' : '1';
+    }
+    const lookup = (name) => {
+      if (present(callParams[name])) return String(callParams[name]);
+      for (const alt of PARAM_ALIASES[name] || []) {
+        if (present(callParams[alt])) return String(callParams[alt]);
+      }
+      return undefined;
+    };
+    const values = pathParams.map(lookup);
+    let lastProvided = -1;
+    values.forEach((v, i) => { if (v !== undefined) lastProvided = i; });
+    // A param may be left out only from the end (the URL cleanup interceptor drops the trailing
+    // "/undefined" segments), and only on reads or for OPTIONAL_PARAMS.
+    const missing = pathParams.filter((p, i) => values[i] === undefined
+      && (i < lastProvided || !(isRead || OPTIONAL_PARAMS.has(p))));
+    if (missing.length > 0) {
+      throw new Error(`Method '${args.method}' requires parameter(s): ${missing.join(', ')}`);
+    }
+    const callArgs = sigParams
+      .filter((p) => p !== 'config')
+      .map((p) => (p === 'data' ? (callParams.data || {}) : values[pathParams.indexOf(p)]));
+    return await method.call(moduleObj, ...callArgs);
   }
 
   async start() {

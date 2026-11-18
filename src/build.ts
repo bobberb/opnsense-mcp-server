@@ -53,6 +53,12 @@ class OPNsenseMCPServer {
         apiSecret: this.config.apiSecret,
         verifySsl: this.config.verifySsl ?? true,
       });
+      // Client URL templates interpolate every path param ("/toggle_job/\${uuid}/\${enabled}"), so an
+      // omitted trailing optional param would reach OPNsense as the literal "undefined". Drop those.
+      this.client.http.client.interceptors.request.use((cfg) => {
+        if (typeof cfg.url === 'string') cfg.url = cfg.url.replace(/(?:[/]undefined)+(?=$|[?])/, '');
+        return cfg;
+      });
     }
     return this.client;
   }
@@ -265,134 +271,66 @@ class OPNsenseMCPServer {
       }
     }
 
-    // Methods that take positional path parameters instead of a single object.
-    // Each entry maps method name to { required: [...], mapper: (params) => args[] }.
-    const positionalMethods = {
-      // Core - backup operations
-      'backupBackups':       { required: ['host'],                     mapper: (p) => [p.host] },
-      'backupDeleteBackup':  { required: ['backup'],                   mapper: (p) => [p.backup, p.data || {}] },
-      'backupDiff':          { required: ['host', 'backup1', 'backup2'], mapper: (p) => [p.host, p.backup1, p.backup2] },
-      'backupDownload':      { required: ['host'],                     mapper: (p) => [p.host, p.backup] },
-      'backupRevertBackup':  { required: ['backup'],                   mapper: (p) => [p.backup, p.data || {}] },
-      // Core - HA sync operations
-      'hasyncStatusRemoteService': { required: ['action', 'service', 'serviceId'], mapper: (p) => [p.action, p.service, p.serviceId] },
-      'hasyncStatusRestart':    { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
-      'hasyncStatusRestartAll': { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
-      'hasyncStatusStart':      { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
-      'hasyncStatusStop':       { required: [], mapper: (p) => [p.service, p.serviceId, p.data || {}] },
-      // Core - service operations
-      'serviceRestart': { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
-      'serviceStart':   { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
-      'serviceStop':    { required: ['name'], mapper: (p) => [p.name, p.id, p.data || {}] },
-      // Core - snapshot operations
-      'snapshotsActivate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'snapshotsDel':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'snapshotsGet':      { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'snapshotsSet':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Core - tunable operations
-      'tunablesDelItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'tunablesGetItem':  { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'tunablesSetItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // IDS - ruleset operations
-      'settingsToggleRuleset': { required: ['filenames', 'enabled'], mapper: (p) => [p.filenames, p.enabled, p.data || {}] },
-      'settingsSetRuleset':    { required: ['filename'],             mapper: (p) => [p.filename, p.data || {}] },
-      'settingsToggleRule':    { required: ['sid', 'enabled'],       mapper: (p) => [p.sid, p.enabled] },
-      // Firewall - filter rules
-      'filterGetRule':        { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'filterSetRule':        { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'filterDelRule':        { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'filterToggleRule':     { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'filterToggleRuleLog':  { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
-      'filterMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
-      // Firewall - aliases
-      'aliasUpdate':      { required: ['action'], mapper: (p) => [p.action, p.data || {}] },
-      'aliasGetItem':     { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'aliasSetItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'aliasDelItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'aliasToggleItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'aliasGetAliasUUID': { required: ['name'], mapper: (p) => [p.name] },
-      'aliasUtilAdd':     { required: ['alias'], mapper: (p) => [p.alias, p.data || {}] },
-      'aliasUtilDelete':  { required: ['alias'], mapper: (p) => [p.alias, p.data || {}] },
-      'aliasUtilFlush':   { required: ['alias'], mapper: (p) => [p.alias, p.data || {}] },
-      'aliasUtilList':    { required: ['alias'], mapper: (p) => [p.alias] },
-      // Firewall - categories
-      'categoryGetItem':  { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'categorySetItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'categoryDelItem':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Firewall - groups
-      'groupGetItem':     { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'groupSetItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'groupDelItem':     { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Firewall - NAT rules (NPT, 1:1, SNAT, DNAT)
-      'nptGetRule':       { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'nptSetRule':       { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'nptDelRule':       { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'nptToggleRule':    { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'oneToOneGetRule':  { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'oneToOneSetRule':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'oneToOneDelRule':  { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'oneToOneToggleRule': { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'sourceNatGetRule':   { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'sourceNatSetRule':   { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'sourceNatDelRule':   { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'sourceNatToggleRule': { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'dNatGetRule':      { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'dNatSetRule':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dNatDelRule':      { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dNatToggleRule':   { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled, p.data || {}] },
-      'dNatToggleRuleLog': { required: ['uuid'], mapper: (p) => [p.uuid, p.enabled || ''] },
-      'dNatMoveRuleBefore': { required: ['uuid', 'targetUuid'], mapper: (p) => [p.uuid, p.targetUuid, p.data || {}] },
-      // Firewall - Outbound->SourceNat migration (26.7): all take a body only, handled by generic fallback
-      // Interfaces - assignments (26.7)
-      'assignmentGetItem': { required: [],         mapper: (p) => p.ifname ? [p.ifname] : [] },
-      'assignmentSetItem': { required: ['ifname'], mapper: (p) => [p.ifname, p.data || {}] },
-      'assignmentDelItem': { required: ['ifnames'], mapper: (p) => [p.ifnames, p.data || {}] },
-      // Routing - gateway groups (26.7)
-      'groupSettingsGet': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'groupSettingsSet': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'groupSettingsDel': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Interfaces - wireless clones (26.7.x); delItem accepts comma-separated uuids
-      'wirelessSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'wirelessSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'wirelessSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Interfaces - tap interfaces (26.7.9)
-      'tapSettingsGetItem': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'tapSettingsSetItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'tapSettingsDelItem': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // CaptivePortal - templates (26.7)
-      'templateGetTemplate': { required: [],       mapper: (p) => p.fileid ? [p.fileid] : [] },
-      'templateDelTemplate': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Diagnostics - system health (26.7)
-      'systemhealthDelRRD': { required: ['report'], mapper: (p) => [p.report, p.data || {}] },
-      // Kea - DHCP options (26.7)
-      'dhcpv4GetOption': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'dhcpv4SetOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dhcpv4DelOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dhcpv6GetOption': { required: [],       mapper: (p) => p.uuid ? [p.uuid] : [] },
-      'dhcpv6SetOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      'dhcpv6DelOption': { required: ['uuid'], mapper: (p) => [p.uuid, p.data || {}] },
-      // Kea - lease deletion (26.7)
-      'leases4DelLease': { required: ['ips'], mapper: (p) => [p.ips, p.data || {}] },
-      'leases6DelLease': { required: ['ips'], mapper: (p) => [p.ips, p.data || {}] },
+    // ── Positional path parameters, derived from the client method's own signature ──
+    // Client methods look like:
+    //   async settingsSetJob(uuid, data, config) { return this.http.post('/api/cron/settings/set_job/' + uuid, data, config); }
+    // Each named parameter is filled from params by name (plus a few aliases). The signature is read
+    // off the actual method being called, so a name shared by many modules with different signatures
+    // (serviceRestart, settingsToggleRule, ...) always maps correctly. Regexes use character classes
+    // instead of backslash escapes because this code is emitted from a template literal.
+    const PARAM_ALIASES = {
+      uuids: ['uuid'], selectedUuid: ['uuid'], sids: ['sid'], filenames: ['filename'],
+      ifnames: ['ifname'], ips: ['ip'], name: ['alias'],
     };
+    // Trailing path params that may be omitted on write endpoints: toggle without "enabled" flips,
+    // service actions without an instance id act on the default instance.
+    const OPTIONAL_PARAMS = new Set(['enabled', 'disabled', 'id', 'service', 'serviceId']);
 
-    const positionalDef = positionalMethods[args.method];
-    if (positionalDef) {
-      // Validate required positional parameters
-      const missing = positionalDef.required.filter(r => callParams[r] === undefined || callParams[r] === null);
-      if (missing.length > 0) {
-        throw new Error(\`Method '\${args.method}' requires parameter(s): \${missing.join(', ')}\`);
+    const fnSrc = Function.prototype.toString.call(method);
+    const sigMatch = fnSrc.match(/^[^(]*[(]([^)]*)[)]/);
+    const sigParams = sigMatch
+      ? sigMatch[1].split(',').map((s) => s.split('=')[0].trim()).filter(Boolean)
+      : [];
+    const verbMatch = fnSrc.match(/this[.]http[.](get|post|put|delete|patch)[(]/);
+    const isRead = verbMatch ? verbMatch[1] === 'get' : false;
+    const pathParams = sigParams.filter((p) => p !== 'data' && p !== 'config');
+
+    if (pathParams.length === 0) {
+      // Body-only methods: unwrap data if present, otherwise pass params as the body
+      if (Object.keys(callParams).length > 0) {
+        return await method.call(moduleObj, callParams.data || callParams);
       }
-      const positionalArgs = positionalDef.mapper(callParams);
-      return await method.call(moduleObj, ...positionalArgs);
-    }
-
-    // For non-positional methods: unwrap data if present, otherwise pass params as-is
-    if (Object.keys(callParams).length > 0) {
-      return await method.call(moduleObj, callParams.data || callParams);
-    } else {
       return await method.call(moduleObj);
     }
+
+    const present = (v) => v !== undefined && v !== null && v !== '';
+    // Endpoints whose toggle takes "disabled" (e.g. firewall d_nat/toggle_rule/{uuid}/{disabled})
+    // accept the caller's "enabled" inverted; passing it through as-is would disable on enabled=1.
+    if (pathParams.includes('disabled') && !present(callParams.disabled)
+        && (String(callParams.enabled) === '0' || String(callParams.enabled) === '1')) {
+      callParams.disabled = String(callParams.enabled) === '1' ? '0' : '1';
+    }
+    const lookup = (name) => {
+      if (present(callParams[name])) return String(callParams[name]);
+      for (const alt of PARAM_ALIASES[name] || []) {
+        if (present(callParams[alt])) return String(callParams[alt]);
+      }
+      return undefined;
+    };
+    const values = pathParams.map(lookup);
+    let lastProvided = -1;
+    values.forEach((v, i) => { if (v !== undefined) lastProvided = i; });
+    // A param may be left out only from the end (the URL cleanup interceptor drops the trailing
+    // "/undefined" segments), and only on reads or for OPTIONAL_PARAMS.
+    const missing = pathParams.filter((p, i) => values[i] === undefined
+      && (i < lastProvided || !(isRead || OPTIONAL_PARAMS.has(p))));
+    if (missing.length > 0) {
+      throw new Error(\`Method '\${args.method}' requires parameter(s): \${missing.join(', ')}\`);
+    }
+    const callArgs = sigParams
+      .filter((p) => p !== 'config')
+      .map((p) => (p === 'data' ? (callParams.data || {}) : values[pathParams.indexOf(p)]));
+    return await method.call(moduleObj, ...callArgs);
   }
 
   async start() {
